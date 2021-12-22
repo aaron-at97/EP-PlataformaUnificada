@@ -10,6 +10,7 @@ public class MemberAccreditationDoc extends PDFDocument {
     private AccredNumb numAffil;
 
     public MemberAccreditationDoc (Nif nif, AccredNumb nAff){
+        super();
         this.nif=nif;
         this.numAffil=nAff;
     }
