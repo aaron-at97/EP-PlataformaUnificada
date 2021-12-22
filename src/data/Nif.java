@@ -6,6 +6,7 @@ import static java.lang.Character.isDigit;
 /**
  * Essential data classes
  */
+
 final public class Nif {
     // The tax identification number in the Spanish state.
 
@@ -18,7 +19,6 @@ final public class Nif {
         if(!CodeNif()){
             throw new Exception("The Nif is not valid. \n");
         }
-
         return nif;
     }
 
@@ -51,9 +51,7 @@ final public class Nif {
             if(!isDigit(codeArray[i]))
                 return false;
         }
-
         return isAlphabetic(codeArray[8]);
-
     }
 
 }
