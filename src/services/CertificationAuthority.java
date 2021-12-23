@@ -11,6 +11,6 @@ public interface CertificationAuthority {// External service that represents the
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException;
     boolean checkPIN (Nif nif, PINcode pin) throws NotValidPINException,
             ConnectException;
-    byte ckeckCredent (Nif nif, Password passw) throws NifNotRegisteredException,
+    byte checkCredent (Nif nif, Password passw) throws NifNotRegisteredException,
             NotValidCredException, AnyMobileRegisteredException, ConnectException;
 }
