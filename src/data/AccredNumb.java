@@ -4,13 +4,13 @@ import static java.lang.Character.isDigit;
 
 final public class AccredNumb {
 
-    private final String ssNum; //  ej SS:  25 10325625 51
+    private final String ssNum; //  ej SS:  25 21325635 51
 
     public AccredNumb(String code) {
         this.ssNum = code;
     }
 
-    public String getPin() throws Exception {
+    public String getssNum() throws Exception {
         if (!CompSSCode())
             throw new Exception("The SS num is not valid. \n");
         return ssNum;

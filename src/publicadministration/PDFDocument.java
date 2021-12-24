@@ -16,12 +16,8 @@ public class PDFDocument { // Represents a PDF document
 
     public PDFDocument() {
         this.creatDate = new Date();
-        this.path = new DocPath("src/Docs/default.pdf");
-        try {
-            this.file = new File(path.getPath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.path = new DocPath("src/Docs/");
+        this.file = new File("default.pdf");
     } // Initializes attributes and emulates the document download at a default path
 
     public Date getCreatDate() {
@@ -48,13 +44,13 @@ public class PDFDocument { // Represents a PDF document
     public void moveDoc(DocPath destPath) throws IOException // Moves the document to the destination path indicated
     {
 
-          Path origenPath = FileSystems.getDefault().getPath(path.getPath());
-          Path destinoPath = FileSystems.getDefault().getPath(destPath.getPath());
+        Path origenPath = FileSystems.getDefault().getPath(path.getPath()+getFile().getPath());
+        Path destinoPath = FileSystems.getDefault().getPath(destPath.getPath());
 
         try {
             Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            System.err.println(e);
+            throw new IOException();
         }
 
     }

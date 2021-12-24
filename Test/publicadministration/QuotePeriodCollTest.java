@@ -45,7 +45,7 @@ public class QuotePeriodCollTest {
     @Test
     void open() throws IOException {
     PDFDocument pdf = new PDFDocument();
-    pdf.openDoc(new DocPath("src/Docs/default.pdf"));
+    pdf.openDoc(new DocPath(pdf.getPath().getPath()+pdf.getFile().getPath()));
     }
     @Test
     void move() throws Exception {

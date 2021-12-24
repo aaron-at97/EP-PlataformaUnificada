@@ -22,8 +22,8 @@ final public class Password {
             return false;
 
         char[] codeArray = password.toCharArray();
-        if (password.length() == 7) {
-            for (int i = 0; i < 7; i++) {
+        if (password.length() >= 7) {
+            for (int i = 0; i < password.length(); i++) {
                 if (!isDigit(codeArray[i])) {
                     digit++;
                 }
