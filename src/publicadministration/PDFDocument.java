@@ -6,7 +6,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class PDFDocument { // Represents a PDF document
     private Date creatDate;
@@ -19,6 +21,12 @@ public class PDFDocument { // Represents a PDF document
         this.path = new DocPath("src/Docs/");
         this.file = new File("default.pdf");
     } // Initializes attributes and emulates the document download at a default path
+
+    public PDFDocument(DocPath path) {
+        this.creatDate = new Date();
+        this.path = path;
+        this.file = new File("default.pdf");
+    }
 
     public Date getCreatDate() {
         return creatDate;
@@ -40,6 +48,19 @@ public class PDFDocument { // Represents a PDF document
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PDFDocument that = (PDFDocument) o;
+        return Objects.equals(creatDate, that.creatDate) && Objects.equals(path, that.path) && Objects.equals(file, that.file);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(creatDate, path, file);
+    }
+
     // To implement only optionally
     public void moveDoc(DocPath destPath) throws IOException // Moves the document to the destination path indicated
     {
@@ -58,7 +79,7 @@ public class PDFDocument { // Represents a PDF document
     public void openDoc(DocPath path) throws IOException // Opens the document at the path indicated
     {
         try {
-            Desktop.getDesktop().open(new File(path.getPath()));
+            Desktop.getDesktop().open(new File(path.getPath()+getFile()));
         } catch (IOException ex) {
             throw new IOException();
         }

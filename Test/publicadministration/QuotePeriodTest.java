@@ -17,6 +17,7 @@ public class QuotePeriodTest {
 
         qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
         qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
+
     }
 
     @Test
@@ -26,6 +27,7 @@ public class QuotePeriodTest {
 
         assertEquals(qPd, equals);
         assertEquals(qPd2, equals1);
+
     }
 
     @Test
@@ -41,20 +43,19 @@ public class QuotePeriodTest {
 
     @Test
     void getNumDays() {
-        assertEquals(qPd.getNumDays(), 3);
-        assertEquals(qPd2.getNumDays(), 128);
-        assertNotEquals(qPd.getNumDays(), 20);
-        assertNotEquals(qPd2.getNumDays(), 11);
+        assertEquals( 3,qPd.getNumDays());
+        assertEquals( 128, qPd2.getNumDays());
+        assertNotEquals(20, qPd.getNumDays());
+        assertNotEquals(11, qPd.getNumDays());
     }
 
 
     @Test
     void getInitDay() {
-        assertEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.FEBRUARY, 18));
-        assertEquals(qPd2.getInitDay(), new Date(2020-1900, Calendar.JULY, 5));
-        assertNotEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.MARCH, 6));
-        assertNotEquals(qPd2.getInitDay(), new Date(2022-1900, Calendar.AUGUST, 5));
-        System.out.println(qPd.getInitDay());
+        assertEquals(new Date(2020-1900, Calendar.FEBRUARY, 18), qPd.getInitDay());
+        assertEquals(new Date(2020-1900, Calendar.JULY, 5), qPd2.getInitDay());
+        assertNotEquals(new Date(2020-1900, Calendar.MARCH, 6), qPd.getInitDay());
+        assertNotEquals(new Date(2022-1900, Calendar.AUGUST, 5), qPd2.getInitDay());
     }
 
 

@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SSImplTest {
 
     static SSImpl agenda;
-    static SSImpl agenda2;
+    static MemberAccreditationDoc mAd;
+    static MemberAccreditationDoc mAd2;
     static QuotePeriodsColl qPdC;
     static QuotePeriodsColl qPdC2;
 
@@ -37,8 +38,8 @@ public class SSImplTest {
 
         agenda = new SSImpl(qPdC, qPdC2);
 
-        MemberAccreditationDoc mAd = new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("252132563551"));
-        MemberAccreditationDoc mAd2 = new MemberAccreditationDoc(new Nif("28148954S"), new AccredNumb("360138569551"));
+        mAd = new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("252132563551"));
+        mAd2 = new MemberAccreditationDoc(new Nif("28148954S"), new AccredNumb("360138569551"));
     }
     @Test
     void getLaboralLife() throws Exception {
@@ -54,15 +55,15 @@ public class SSImplTest {
 
     @Test
     void getMemberAccred() throws Exception {
+        MemberAccreditationDoc mAdNot = new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("123456789109"));
 
-        assertEquals(agenda.getMembAccred(new Nif("78545954N")), new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("252132563551")));
-        assertEquals(agenda.getMembAccred(new Nif("28148954S")), new MemberAccreditationDoc(new Nif("28148954S"),new AccredNumb("360138569551")));
-        assertNotEquals(agenda.getMembAccred(new Nif("78545954N")), new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("123456789109")));
+        assertEquals(mAd, agenda.getMembAccred(new Nif("78545954N")));
+        assertEquals(mAd2, agenda.getMembAccred(new Nif("28148954S")));
+        assertNotEquals(mAdNot ,agenda.getMembAccred(new Nif("78545954N")));
 
         assertThrows(NotAffiliatedException.class, () -> agenda.getMembAccred(null));
         assertThrows(NotAffiliatedException.class, () -> agenda.getMembAccred(new Nif("59168954S")));
 
     }
 
-    /**/
 }
