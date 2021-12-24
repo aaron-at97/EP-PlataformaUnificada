@@ -47,7 +47,7 @@ public class UnifiedPlatform {
         }
     }
     public void enterPIN (PINcode pin) throws NotValidPINException, NotAffiliatedException, ConnectException {
-        ss.getMembAccred(nif);
+
         cert.checkPIN(nif, pin);
     }
     //opcional
