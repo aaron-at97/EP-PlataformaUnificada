@@ -1,8 +1,10 @@
 package publicadministration;
 
+import data.DocPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,8 +42,16 @@ public class QuotePeriodCollTest {
         assertEquals(qPdC.getListQuote(), listQuote);
 
     }
-
-
+    @Test
+    void open() throws IOException {
+    PDFDocument pdf = new PDFDocument();
+    pdf.openDoc(new DocPath("src/Docs/default.pdf"));
+    }
+    @Test
+    void move() throws Exception {
+        PDFDocument pdf = new PDFDocument();
+        pdf.moveDoc(new DocPath("src/Docs/move/default.pdf"));
+    }
 
     @Test
     void getInitDay() {
