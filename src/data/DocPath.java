@@ -1,5 +1,6 @@
 package data;
 
+import java.io.IOException;
 import java.util.Objects;
 
 final public class DocPath {
@@ -10,9 +11,9 @@ final public class DocPath {
         this.path = code;
     }
 
-    public String getPath() throws Exception {
+    public String getPath() throws IOException {
         if (!CompPathCode())
-            throw new Exception("The Path is not valid. \n");
+            throw new IOException("The Path is not valid. \n");
         return path;
     }
 
