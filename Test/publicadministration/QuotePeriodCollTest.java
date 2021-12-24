@@ -1,6 +1,7 @@
 package publicadministration;
 
 import data.DocPath;
+import data.exceptions.BadPathException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,10 +26,12 @@ public class QuotePeriodCollTest {
         qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
         qPd3 = new QuotePeriod(new Date(2018-1900, Calendar.AUGUST, 5) , 58);
         qPdC = new QuotePeriodsColl();
+
     }
 
     @Test
-    void equalsTest() {
+    void addPeriodTest() {
+
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
         qPdC.addQuotePeriod(qPd3);
@@ -39,27 +42,18 @@ public class QuotePeriodCollTest {
         listQuote.add(qPd);
         listQuote.add(qPd2);
 
-        assertEquals(qPdC.getListQuote(), listQuote);
+        assertEquals(listQuote, qPdC.getListQuote());
 
-    }
-    @Test
-    void open() throws IOException {
-    PDFDocument pdf = new PDFDocument();
-    pdf.openDoc(new DocPath(pdf.getPath().getPath()+pdf.getFile().getPath()));
-    }
-    @Test
-    void move() throws Exception {
-        PDFDocument pdf = new PDFDocument();
-        pdf.moveDoc(new DocPath("src/Docs/move/default.pdf"));
     }
 
     @Test
     void getInitDay() {
+
         assertEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.FEBRUARY, 18));
         assertEquals(qPd2.getInitDay(), new Date(2020-1900, Calendar.JULY, 5));
         assertNotEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.MARCH, 6));
         assertNotEquals(qPd2.getInitDay(), new Date(2022-1900, Calendar.AUGUST, 5));
-        System.out.println(qPd.getInitDay());
+
     }
 
 
