@@ -10,7 +10,9 @@ import services.exceptions.NotAffiliatedException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class UnifiedPlatform {
  //??? // The class members
@@ -25,35 +27,58 @@ public class UnifiedPlatform {
     public UnifiedPlatform(){
         this.doc = new PDFDocument();
     }
+
     // Input events
-    public void processSearcher () {  }
-    public void enterKeyWords (String keyWord) throws AnyKeyWordProcedureException{
+    public void processSearcher () {
 
     }
-    public void selects () {  }
 
-    public void selectCitizens () {  }
+    public void enterKeyWords (String keyWord) throws AnyKeyWordProcedureException{
+        String res = byKeyWord(keyWord);
+        if (res==null) {
+            throw new AnyKeyWordProcedureException(" No existe el tramite ");
+        }
+        System.out.println(res);
+   }
 
-    public void selectReports () {  }
+    public void selects () {
 
-    public void selectCertificationReport (byte opc) {  }
+    }
 
-    public void selectAuthMethod (byte opc) { }
+    public void selectCitizens () {
 
-    public void enterNIF_PINobt (Nif nif, Date valDate) throws NifNotRegisteredException,
+    }
+
+    public void selectReports () {
+
+    }
+
+    public void selectCertificationReport (byte opc) {
+
+    }
+
+    public void selectAuthMethod (byte opc) {
+
+    }
+
+    public void enterNIF_PINobt(Nif nif, Date valDate) throws NifNotRegisteredException,
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException
     {
         try {
             cert.sendPIN(nif, valDate);
+            this.nif=nif;
         }
         catch (ConnectException ce){
             throw new ConnectException();
         }
     }
+
     public void enterPIN (PINcode pin) throws NotValidPINException, NotAffiliatedException, ConnectException {
 
         cert.checkPIN(nif, pin);
+
     }
+
     //opcional
     public void enterCred (Nif nif, Password passw) throws NifNotRegisteredException, NotValidCredException,
             AnyMobileRegisteredException, ConnectException {
@@ -80,7 +105,15 @@ public class UnifiedPlatform {
     }
 
     // Other operations
-    private String searchKeyWords (String keyWord) throws AnyKeyWordProcedureException { return keyWord; }
+    private String searchKeyWords (String keyWord) throws AnyKeyWordProcedureException {
+        String res = byKeyWord(keyWord);
+        if (res==null) {
+            throw new AnyKeyWordProcedureException(" No existe el tramite ");
+        }
+
+        return res;
+    }
+
     void OpenDocument(DocPath path) throws BadPathException {
 
         if (!doc.getPath().equals(path)) {
@@ -110,6 +143,17 @@ public class UnifiedPlatform {
         if (!doc.getPath().equals(path)) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
+    }
+    private String byKeyWord(String keyWord) {
+        Map<String, String> listkeyWord = new HashMap<>();
+        listkeyWord.put("vida laboral", "SS");
+        listkeyWord.put("numero de afiliacion", "SS");
+        for (int i=0; i <listkeyWord.size(); i++) {
+            if (listkeyWord.containsKey(keyWord)) {
+                return listkeyWord.get(keyWord);
+            }
+        }
+        return null;
     }
  //??? // Possibly more operations
 }
