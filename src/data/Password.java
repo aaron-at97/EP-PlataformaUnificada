@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Objects;
+
 import static java.lang.Character.isAlphabetic;
 import static java.lang.Character.isDigit;
 
@@ -35,5 +37,24 @@ final public class Password {
         return digit >= 1 && alpha >= 1;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Password password1 = (Password) o;
+        return Objects.equals(password, password1.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(password);
+    }
+
+    @Override
+    public String toString() {
+        return "Password{" +
+                "password='" + password + '\'' +
+                '}';
+    }
 }
 

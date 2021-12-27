@@ -27,12 +27,12 @@ public class SSImpl {
 
         LaboralLifeDoc lLd = new LaboralLifeDoc(new Nif("78545954N"),qPdC);
         LaboralLifeDoc lLd2 = new LaboralLifeDoc(new Nif("28148954S"), qPdC2);
-        listLaboral.add(lLd);
-        listLaboral.add(lLd2);
+        this.listLaboral.add(lLd);
+        this.listLaboral.add(lLd2);
         MemberAccreditationDoc mAd = new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("252132563551"));
         MemberAccreditationDoc mAd2 = new MemberAccreditationDoc(new Nif("28148954S"), new AccredNumb("360138569551"));
-        listMembAccred.add(mAd);
-        listMembAccred.add(mAd2);
+        this.listMembAccred.add(mAd);
+        this.listMembAccred.add(mAd2);
 
     }
 

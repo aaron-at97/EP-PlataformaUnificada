@@ -1,4 +1,4 @@
-package data.exceptions;
+package services.exceptions;
 
 public class IncorrectValDateException extends Exception{
     public IncorrectValDateException(String msg) {

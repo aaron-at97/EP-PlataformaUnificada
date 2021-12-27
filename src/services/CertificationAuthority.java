@@ -1,8 +1,12 @@
 package services;
 
 import data.*;
-import data.exceptions.*;
 import publicadministration.exceptions.*;
+import services.exceptions.IncorrectValDateException;
+import services.exceptions.NifNotRegisteredException;
+import services.exceptions.NotValidCredException;
+import services.exceptions.NotValidPINException;
+
 import java.net.ConnectException;
 import java.util.Date;
 
