@@ -83,8 +83,9 @@ public class UnifiedPlatform {
             selReports = true;
             System.out.println("------------------------------");
             System.out.println("Selecciona el metodo de autentificacion ");
-            System.out.println("0: Obtener vida laboral ");
-            System.out.println("1: Obtener número de afiliación ");
+            System.out.println("0: Cl@ve PIN ");
+            System.out.println("1: Cl@ve Permanente ");
+            System.out.println("2: Certificado Digital ");
             System.out.println("------------------------------");
             opcion = opc;
         } else {
