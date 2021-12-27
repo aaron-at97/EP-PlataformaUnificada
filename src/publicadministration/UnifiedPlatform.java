@@ -4,7 +4,7 @@ import data.*;
 import data.exceptions.*;
 import publicadministration.exceptions.*;
 import services.*;
-import services.exceptions.NotAffiliatedException;
+import services.exceptions.*;
 
 
 import java.io.IOException;
@@ -109,7 +109,7 @@ public class UnifiedPlatform {
             if (!cert.sendPIN(nif, valDate)) {
                 throw new NifNotRegisteredException("No posible validar cuenta");
             }
-            this.nif=nif;
+            this.nif = nif;
             if (actual.after(valDate)) {
                 throw new IncorrectValDateException("nif valdate no valido");
             }
@@ -136,14 +136,13 @@ public class UnifiedPlatform {
         try {
             byte metodo;
             metodo = cert.checkCredent(nif, passw);
-            this.nif=nif;
+            this.nif = nif;
 
             if (metodo == 0) {
                 throw new NotValidCredException("ddf");
             } else if (metodo == 1) {
                 informes();
-            }
-            else if (metodo == 2) {
+            } else if (metodo == 2) {
                 PINcode pin = null;
                 enterPIN(pin);
             }
@@ -152,7 +151,6 @@ public class UnifiedPlatform {
         }
     } // clave permanente
 
-    //
     private void printDocument() throws BadPathException, PrintingException {
         if (doc.getPath() == null) {
             throw new BadPathException("Ruta tramites incorrecta");
@@ -175,7 +173,6 @@ public class UnifiedPlatform {
         if (res == null) {
             throw new AnyKeyWordProcedureException(" No existe el tramite ");
         }
-
         return res;
     }
 
@@ -214,21 +211,26 @@ public class UnifiedPlatform {
         Map<String, String> listkeyWord = new HashMap<>();
         listkeyWord.put("vida laboral", "SS");
         listkeyWord.put("numero de afiliacion", "SS");
-        for (int i = 0; i < listkeyWord.size(); i++) {
-            if (listkeyWord.containsKey(keyWord)) {
-                return listkeyWord.get(keyWord);
-            }
+        listkeyWord.put("afiliacion", "SS");
+        listkeyWord.put("laboral", "SS");
+        listkeyWord.put("datos fiscales", "AEAT");
+        listkeyWord.put("declaración de la renta", "AEAT");
+        listkeyWord.put("puntos carnet", "DGT");
+        listkeyWord.put("certificado de nacimiento", "MJ");
+
+        if (listkeyWord.containsKey(keyWord)) {
+            return listkeyWord.get(keyWord);
         }
         return null;
     }
 
     private void informes() throws NotAffiliatedException, ConnectException {
         if (opcion == 0) {
-            if (ss.getLaboralLife(nif)==null) {
+            if (ss.getLaboralLife(nif) == null) {
                 throw new NotAffiliatedException("");
             }
         } else if (opcion == 1) {
-            if (ss.getLaboralLife(nif)==null) {
+            if (ss.getLaboralLife(nif) == null) {
                 throw new NotAffiliatedException("");
             }
         }

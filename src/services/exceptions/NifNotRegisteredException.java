@@ -1,4 +1,4 @@
-package data.exceptions;
+package services.exceptions;
 
 public class NifNotRegisteredException extends Exception{
     public NifNotRegisteredException(String msg) {
