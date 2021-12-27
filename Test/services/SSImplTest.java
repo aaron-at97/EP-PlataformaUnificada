@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import publicadministration.*;
 import services.exceptions.NotAffiliatedException;
 
-import java.net.ConnectException;
 import java.util.*;
 
 
