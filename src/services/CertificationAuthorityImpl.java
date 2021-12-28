@@ -62,15 +62,18 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
     @Override
     public byte checkCredent(Nif nif, Password passw) throws NifNotRegisteredException, NotValidCredException, AnyMobileRegisteredException, ConnectException {
 
-        if (!this.listPermanente.containsKey(nif)) {
+        if (!this.listTypePermanente.containsKey(nif)) {
             throw new NifNotRegisteredException("");
         }
-
+        if (this.listTypePermanente.get(nif)==0 ) {
+            return 0;
+        }
         if (!buscarCheckPermanent(nif, passw)) {
             throw new NotValidCredException("");
         }
 
         try {
+
             if (this.listTypePermanente.get(nif) == 2) {
                 generatePIN(nif);
             }
@@ -102,6 +105,9 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         this.listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
         this.listPermanente.put(new Nif("98748978T"), new Password("56835Da6825"));
 
+
+        this.listTypePermanente.put(new Nif("78545954N"), (byte) 0);
+        this.listTypePermanente.put(new Nif("28148954S"), (byte) 0);
         this.listTypePermanente.put(new Nif("59168954S"), (byte) 1);
         this.listTypePermanente.put(new Nif("98748978T"), (byte) 2);
 
