@@ -21,6 +21,7 @@ public class UnifiedPlatform {
     Nif nif;
     PDFDocument doc;
     Byte opcion;
+    PINcode pin;
     boolean searcher, selects, selCitizens, selReports;
     private final Date actual = new Date();
 
@@ -31,6 +32,7 @@ public class UnifiedPlatform {
         this.selReports = false;
         this.cert = cert;
         this.ss = ss;
+        this.pin = null;
         this.doc = new PDFDocument();
     }
 
@@ -61,7 +63,7 @@ public class UnifiedPlatform {
         if (selects) {
             selCitizens = true;
         } else {
-            System.out.println("Metodo que precede no realizado ");
+            System.out.print("Metodo que precede no realizado \n");
         }
     }
 
@@ -110,10 +112,6 @@ public class UnifiedPlatform {
                 throw new NifNotRegisteredException("No posible validar cuenta");
             }
             this.nif = nif;
-            if (actual.after(valDate)) {
-                throw new IncorrectValDateException("nif valdate no valido");
-            }
-
         } catch (ConnectException ce) {
             throw new ConnectException();
         }
@@ -139,11 +137,10 @@ public class UnifiedPlatform {
             this.nif = nif;
 
             if (metodo == 0) {
-                throw new NotValidCredException("ddf");
+                throw new NifNotRegisteredException("NIF no registrado al sistema Permanente");
             } else if (metodo == 1) {
                 informes();
             } else if (metodo == 2) {
-                PINcode pin = null;
                 enterPIN(pin);
             }
         } catch (ConnectException | NotAffiliatedException | NotValidPINException e) {
@@ -235,5 +232,46 @@ public class UnifiedPlatform {
             }
         }
     }
+
+    public CertificationAuthority getCert() {
+        return cert;
+    }
+
+    public void setCert(CertificationAuthority cert) {
+        this.cert = cert;
+    }
+
+    public SS getSs() {
+        return ss;
+    }
+
+    public void setSs(SS ss) {
+        this.ss = ss;
+    }
+
+    public Nif getNif() {
+        return nif;
+    }
+
+    public void setNif(Nif nif) {
+        this.nif = nif;
+    }
+
+    public PDFDocument getDoc() {
+        return doc;
+    }
+
+    public void setDoc(PDFDocument doc) {
+        this.doc = doc;
+    }
+
+    public PINcode getPin() {
+        return pin;
+    }
+
+    public void setPin(PINcode pin) {
+        this.pin = pin;
+    }
+
     //??? // Possibly more operations
 }
