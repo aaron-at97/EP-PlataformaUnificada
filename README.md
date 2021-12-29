@@ -8,8 +8,8 @@
         *  [x] PINcode
         *  [x] DocPath
         *  [x] AccredNumb
-        *  [ ] EncryptedData (certificado digital)
-        *  [ ] EncryptingKey (certificado digital)
+        *  [x] EncryptedData (certificado digital)
+        *  [x] EncryptingKey (certificado digital)
     * publicadministration
         *  [x] QuotePeriodsColl
         *  [x] QuotePeriods
@@ -27,10 +27,10 @@
       *  [x] NIFTest
       *  [x] PasswordTest
       *  [x] PINcodeTest
-      *  [ ] DocPathTest Falta ------------------
+      *  [x] DocPathTest
       *  [x] AccredNumbTest
-      *  [ ] EncryptedDataTest (certificado digital)
-      *  [ ] EncryptingKeyTest (certificado digital)
+      *  [x] EncryptedDataTest (certificado digital)
+      *  [x] EncryptingKeyTest (certificado digital)
     * publicadministration
       *  [X] QuotePeriodsCollTest
       *  [X] QuotePeriodsTest
@@ -40,7 +40,7 @@
       *  [ ] UnifiedPlatformNormalTest
       *  [ ] UnifiedPlatformNullTest 
     * Services 
-      *  [] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
+      *  [ ] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
       *  [x] SSImplTest
 
   * Documentación
