@@ -17,7 +17,7 @@
         *  [x] LaboralLifeDoc
         *  [x] MemberAccreditationDoc
         *  [ ] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
-    * Services [X]
+    * Services
         *  [x] AuthoridadCertificacion 
         *  [ ] AuthoridadCertificacionImpl (certificado digital)
         *  [x] SS
