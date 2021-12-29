@@ -2,10 +2,7 @@ package services;
 
 import data.*;
 import publicadministration.exceptions.*;
-import services.exceptions.IncorrectValDateException;
-import services.exceptions.NifNotRegisteredException;
-import services.exceptions.NotValidCredException;
-import services.exceptions.NotValidPINException;
+import services.exceptions.*;
 
 import java.net.ConnectException;
 import java.util.Date;
@@ -17,4 +14,6 @@ public interface CertificationAuthority {// External service that represents the
             ConnectException;
     byte checkCredent (Nif nif, Password passw) throws NifNotRegisteredException,
             NotValidCredException, AnyMobileRegisteredException, ConnectException;
+    EncryptedData sendCertfAuth(EncryptingKey pubKey)
+            throws Exception;
 }
