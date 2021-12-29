@@ -23,12 +23,12 @@ public class PDFDocumentTest {
     }
 
     @Test
-    void open() throws IOException {
+    void open() throws Exception {
         pdf.openDoc(new DocPath("src/Docs/"));
     }
 
     @Test
-    void move() throws IOException {
+    void move() throws Exception {
 
         pdf.moveDoc(new DocPath("src/Docs/move/default.pdf"));
         PDFDocument pdf2 = new PDFDocument(new DocPath("src/Docs/move/"));

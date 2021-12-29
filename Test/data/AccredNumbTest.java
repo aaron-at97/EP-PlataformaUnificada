@@ -42,11 +42,11 @@ public class AccredNumbTest {
     @Test
     public void erroresProductID() {
 
-        Assertions.assertTrue(correct.CompSSCode());
-        Assertions.assertFalse(incorrect1.CompSSCode());
-        Assertions.assertFalse(incorrect2.CompSSCode());
-        Assertions.assertFalse(incorrect3.CompSSCode());
-        Assertions.assertFalse(incorrect4.CompSSCode());
+        Assertions.assertTrue(correct.compSSCode());
+        Assertions.assertFalse(incorrect1.compSSCode());
+        Assertions.assertFalse(incorrect2.compSSCode());
+        Assertions.assertFalse(incorrect3.compSSCode());
+        Assertions.assertFalse(incorrect4.compSSCode());
 
     }
 }

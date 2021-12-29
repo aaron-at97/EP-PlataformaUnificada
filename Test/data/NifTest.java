@@ -45,12 +45,12 @@ public class NifTest {
     @Test
     void erroresTest() {
 
-        Assertions.assertTrue(correct.CodeNif());
-        Assertions.assertFalse(incorrect1.CodeNif());
-        Assertions.assertFalse(incorrect2.CodeNif());
-        Assertions.assertFalse(incorrect3.CodeNif());
-        Assertions.assertFalse(incorrect4.CodeNif());
-        Assertions.assertFalse(incorrect5.CodeNif());
+        Assertions.assertTrue(correct.codeNif());
+        Assertions.assertFalse(incorrect1.codeNif());
+        Assertions.assertFalse(incorrect2.codeNif());
+        Assertions.assertFalse(incorrect3.codeNif());
+        Assertions.assertFalse(incorrect4.codeNif());
+        Assertions.assertFalse(incorrect5.codeNif());
 
     }
 

@@ -36,11 +36,11 @@ public class PINcodeTest {
     @Test
     public void erroresPINcode() {
 
-        Assertions.assertTrue(correct.CompPINCode());
-        Assertions.assertFalse(incorrect1.CompPINCode());
-        Assertions.assertFalse(incorrect2.CompPINCode());
-        Assertions.assertFalse(incorrect3.CompPINCode());
-        Assertions.assertFalse(incorrect4.CompPINCode());
+        Assertions.assertTrue(correct.compPINCode());
+        Assertions.assertFalse(incorrect1.compPINCode());
+        Assertions.assertFalse(incorrect2.compPINCode());
+        Assertions.assertFalse(incorrect3.compPINCode());
+        Assertions.assertFalse(incorrect4.compPINCode());
 
     }
 

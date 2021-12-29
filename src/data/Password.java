@@ -13,12 +13,12 @@ final public class Password {
     }
 
     public String getPassword() throws Exception {
-        if (!CompPasswordCode())
+        if (!compPasswordCode())
             throw new Exception("The password is not valid. \n");
         return password;
     }
 
-    public Boolean CompPasswordCode() {
+    public Boolean compPasswordCode() {
         int digit = 0, alpha =0;
         if (password == null)
             return false;

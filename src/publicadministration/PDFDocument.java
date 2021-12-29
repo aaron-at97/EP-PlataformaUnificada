@@ -62,7 +62,7 @@ public class PDFDocument { // Represents a PDF document
     }
 
     // To implement only optionally
-    public void moveDoc(DocPath destPath) throws IOException // Moves the document to the destination path indicated
+    public void moveDoc(DocPath destPath) throws Exception // Moves the document to the destination path indicated
     {
 
         Path origenPath = FileSystems.getDefault().getPath(path.getPath()+getFile().getPath());
@@ -76,12 +76,12 @@ public class PDFDocument { // Represents a PDF document
 
     }
 
-    public void openDoc(DocPath path) throws IOException // Opens the document at the path indicated
+    public void openDoc(DocPath path) throws Exception // Opens the document at the path indicated
     {
         try {
             Desktop.getDesktop().open(new File(path.getPath()+getFile()));
-        } catch (IOException ex) {
-            throw new IOException();
+        } catch (Exception ex) {
+            throw new Exception();
         }
     }
 

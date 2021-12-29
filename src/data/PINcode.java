@@ -10,12 +10,12 @@ final public class PINcode {
     }
 
     public String getPin() throws Exception {
-        if (!CompPINCode())
+        if (!compPINCode())
             throw new Exception("The PIN is not valid. \n");
         return pin;
     }
 
-    public Boolean CompPINCode() {
+    public Boolean compPINCode() {
 
         if (pin == null)
             return false;

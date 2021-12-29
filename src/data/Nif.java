@@ -16,7 +16,7 @@ final public class Nif {
 
     public String getNif () throws Exception{
 
-        if(!CodeNif()){
+        if(!codeNif()){
             throw new Exception("The Nif is not valid. \n");
         }
         return nif;
@@ -38,7 +38,7 @@ final public class Nif {
         return "Nif{" + "nif ciudadano='" + nif + '\'' + '}';
     }
 
-    public Boolean CodeNif(){
+    public Boolean codeNif(){
 
         if (nif == null)
             return false;
