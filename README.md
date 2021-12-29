@@ -1,27 +1,27 @@
 # EP-PlataformaUnificada
 
 ### Indice ###
-
-  * Data
-      *  [x] NIF
-      *  [x] Password (Cl@ve permanente)
-      *  [x] PINcode
-      *  [x] DocPath
-      *  [x] AccredNumb
-      *  [ ] EncryptedData
-      *  [ ] EncryptingKey
-  * publicadministration
-      *  [x] QuotePeriodsColl
-      *  [x] QuotePeriods
-      *  [x] PDFDocument
-      *  [x] LaboralLifeDoc
-      *  [x] MemberAccreditationDoc
-      *  [ ] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
-  * Services [X]
-      *  [ ] AuthoridadCertificacion
-      *  [ ] AuthoridadCertificacionImpl
-      *  [x] SS
-      *  [x] SSImpl
+  * Clases
+    * Data
+        *  [x] NIF
+        *  [x] Password (Cl@ve permanente)
+        *  [x] PINcode
+        *  [x] DocPath
+        *  [x] AccredNumb
+        *  [ ] EncryptedData
+        *  [ ] EncryptingKey
+    * publicadministration
+        *  [x] QuotePeriodsColl
+        *  [x] QuotePeriods
+        *  [x] PDFDocument
+        *  [x] LaboralLifeDoc
+        *  [x] MemberAccreditationDoc
+        *  [ ] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
+    * Services [X]
+        *  [ ] AuthoridadCertificacion
+        *  [ ] AuthoridadCertificacionImpl
+        *  [x] SS
+        *  [x] SSImpl
   * Tests
     * Data
       *  [x] NIFTest
@@ -44,4 +44,4 @@
       *  [x] SSImplTest
 
   * Documentación
-    * - [ ] ----------------------------
+    *  [ ] ----------------------------
