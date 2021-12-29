@@ -3,50 +3,42 @@ package data;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import static java.lang.Character.isAlphabetic;
-import static java.lang.Character.isDigit;
-
 final public class EncryptingKey {
-    private final BigInteger password;
+    private final BigInteger key;
 
     public EncryptingKey(BigInteger code) {
-        this.password = code;
+        this.key = code;
     }
 
-    public BigInteger getPassword() {
-        return password;
-    }
-
-    /*public Boolean CompPasswordCode() {
-        int digit = 0, alpha =0;
-        if (password == null)
-            return false;
-
-        char[] codeArray = password.toCharArray();
-        if (password.length() >= 7) {
-            for (int i = 0; i < password.length(); i++) {
-                if (!isDigit(codeArray[i])) {
-                    digit++;
-                }
-                if (!isAlphabetic(codeArray[i])) {
-                    alpha++;
-                }
-            }
+    public BigInteger getKey() throws Exception {
+        if (!compKeyCode()) {
+            throw new Exception("The key is not valid. \n");
         }
-        return digit >= 1 && alpha >= 1;
-    }*/
+        return key;
+    }
+
+    public Boolean compKeyCode() {
+        return key != null;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EncryptingKey that = (EncryptingKey) o;
-        return Objects.equals(password, that.password);
+        return Objects.equals(key, that.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(password);
+        return Objects.hash(key);
+    }
+
+    @Override
+    public String toString() {
+        return "EncryptingKey{" +
+                "key=" + key +
+                '}';
     }
 }
 

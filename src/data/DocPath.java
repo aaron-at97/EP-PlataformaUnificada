@@ -11,13 +11,13 @@ final public class DocPath {
         this.path = code;
     }
 
-    public String getPath() throws IOException {
-        if (!CompPathCode())
-            throw new IOException("The Path is not valid. \n");
+    public String getPath() throws Exception {
+        if (!compPathCode())
+            throw new Exception("The Path is not valid. \n");
         return path;
     }
 
-    public Boolean CompPathCode() {
+    public Boolean compPathCode() {
         return path != null;
     }
 

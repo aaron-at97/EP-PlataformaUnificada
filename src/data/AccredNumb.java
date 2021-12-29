@@ -11,12 +11,12 @@ final public class AccredNumb {
     }
 
     public String getssNum() throws Exception {
-        if (!CompSSCode())
+        if (!compSSCode())
             throw new Exception("The SS num is not valid. \n");
         return ssNum;
     }
 
-    public Boolean CompSSCode() {
+    public Boolean compSSCode() {
         if (ssNum == null)
             return false;
 

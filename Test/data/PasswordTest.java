@@ -38,11 +38,11 @@ public class PasswordTest {
     @Test
     public void erroresPassword() {
 
-        Assertions.assertTrue(correct.CompPasswordCode());
-        Assertions.assertFalse(incorrect1.CompPasswordCode());
-        Assertions.assertFalse(incorrect2.CompPasswordCode());
-        Assertions.assertFalse(incorrect3.CompPasswordCode());
-        Assertions.assertFalse(incorrect4.CompPasswordCode());
+        Assertions.assertTrue(correct.compPasswordCode());
+        Assertions.assertFalse(incorrect1.compPasswordCode());
+        Assertions.assertFalse(incorrect2.compPasswordCode());
+        Assertions.assertFalse(incorrect3.compPasswordCode());
+        Assertions.assertFalse(incorrect4.compPasswordCode());
 
     }
 
