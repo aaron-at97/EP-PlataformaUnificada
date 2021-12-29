@@ -1,19 +1,17 @@
 package services;
 
-import data.Nif;
-import data.PINcode;
-import data.Password;
-import services.exceptions.IncorrectValDateException;
-import services.exceptions.NifNotRegisteredException;
-import services.exceptions.NotValidCredException;
-import services.exceptions.NotValidPINException;
+import data.*;
+import services.exceptions.*;
 import publicadministration.exceptions.AnyMobileRegisteredException;
 
+import javax.crypto.*;
+import java.math.BigInteger;
 import java.net.ConnectException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.*;
 
 public class CertificationAuthorityImpl implements CertificationAuthority {
 
@@ -21,7 +19,8 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
     Map<Nif, Byte> listTypePermanente = new HashMap<>();
     Map<Nif, Date> listClave = new HashMap<>();
     Map<Nif, PINcode> generatePIN = new HashMap<>();
-
+    Map<EncryptingKey, Nif > certDigital = new HashMap<>();
+    byte[] publicKey;
     public CertificationAuthorityImpl() {
         cuentasClave();
     }
@@ -86,9 +85,50 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
 
     }
 
+    @Override
+    public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException, ConnectException {
+        if (!this.certDigital.containsKey(pubKey) || this.certDigital.get(pubKey) == null) {
+            throw new NotValidCertificateException("");
+        }
+        try {
+            return new EncryptedData(getEncrypted(this.certDigital.get(pubKey), pubKey));
+        } catch (Exception e) {
+            throw new ConnectException("");
+        }
+    }
+
     private boolean buscarCheckNif(Nif nif, Date date) {
         return this.listClave.containsKey(nif) && this.listClave.get(nif).equals(date);
     }
+    public byte[] getEncrypted(Nif nif, EncryptingKey pubKey) throws Exception {
+
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        BigInteger result = getPublicKey();
+        PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(new String(result.toByteArray()))));
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        byte[] encryptedbytes = cipher.doFinal(nif.getNif().getBytes());
+
+        return encryptedbytes;
+
+    }
+
+    public BigInteger getPublicKey() throws NoSuchAlgorithmException {
+        /*BigInteger result = getPublicKey();
+        System.out.println(result);
+        System.out.println(new String(result.toByteArray()));*/
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("Blowfish");
+        keyGenerator.init(448);
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(1024);
+        KeyPair keyPair = keyPairGenerator.genKeyPair();
+
+        String pubKey = new String(Base64.getEncoder().encode(keyPair.getPublic().getEncoded()));
+        byte[] inputStringBytes = pubKey.getBytes();
+        return new BigInteger(inputStringBytes);
+    }
+
+
 
     private boolean buscarCheckPermanent(Nif nif, Password passw) {
         return this.listPermanente.get(nif).equals(passw);
@@ -97,6 +137,7 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
     private void generatePIN(Nif nif) {
         this.generatePIN.put(nif, new PINcode("123"));
     }
+
 
     private void cuentasClave() {
 
@@ -110,6 +151,8 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         this.listTypePermanente.put(new Nif("28148954S"), (byte) 0);
         this.listTypePermanente.put(new Nif("59168954S"), (byte) 1);
         this.listTypePermanente.put(new Nif("98748978T"), (byte) 2);
+
+        this.certDigital.put(new EncryptingKey(BigInteger.ONE), new Nif("19874897B"));
 
     }
 

@@ -48,7 +48,7 @@ public class UnifiedPlatform {
         if (searcher) {
             String res = byKeyWord(keyWord);
             if (res == null) {
-                throw new AnyKeyWordProcedureException(" No existe el tramite ");
+                throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
             }
             System.out.println(res);
         }
@@ -76,7 +76,7 @@ public class UnifiedPlatform {
             System.out.println("1: Obtener número de afiliación ");
             System.out.println("------------------------------");
         } else {
-            System.out.println("Metodo que precede no realizado ");
+            System.out.print("Metodo que precede no realizado \n");
         }
     }
 
@@ -91,7 +91,7 @@ public class UnifiedPlatform {
             System.out.println("------------------------------");
             opcion = opc;
         } else {
-            System.out.println("Metodo que precede no realizado ");
+            System.out.print("Metodo que precede no realizado \n");
         }
     }
 
@@ -100,7 +100,7 @@ public class UnifiedPlatform {
             selReports = true;
 
         } else {
-            System.out.println("Metodo que precede no realizado ");
+            System.out.print("Metodo que precede no realizado \\n\");");
         }
 
     }
@@ -108,6 +108,12 @@ public class UnifiedPlatform {
     public void enterNIF_PINobt(Nif nif, Date valDate) throws NifNotRegisteredException,
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException {
         try {
+            if (nif == null) {
+                throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+            }
+            if (valDate == null) {
+                throw new IncorrectValDateException("data nula");
+            }
             if (!cert.sendPIN(nif, valDate)) {
                 throw new NifNotRegisteredException("No posible validar cuenta");
             }
@@ -133,6 +139,12 @@ public class UnifiedPlatform {
             AnyMobileRegisteredException, ConnectException {
         try {
             byte metodo;
+            if (nif == null) {
+                throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+            }
+            if (passw == null) {
+                throw new NotValidCredException("Password nula");
+            }
             metodo = cert.checkCredent(nif, passw);
             this.nif = nif;
 
@@ -159,7 +171,7 @@ public class UnifiedPlatform {
     }
 
     private void selectPath(DocPath path) throws BadPathException {
-        if (doc.getPath() != path) {
+        if (path==null) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
     }
@@ -168,7 +180,7 @@ public class UnifiedPlatform {
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
         String res = byKeyWord(keyWord);
         if (res == null) {
-            throw new AnyKeyWordProcedureException(" No existe el tramite ");
+            throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
         }
         return res;
     }
@@ -202,6 +214,15 @@ public class UnifiedPlatform {
         if (!doc.getPath().equals(path)) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
+    }
+    public void selectCertificate(byte opc){ }
+    public void enterPassw(Password pas) throws NotValidPasswordException {}
+
+    Nif decryptIDdata(EncryptedData encrypData) throws DecryptationException {
+        return this.nif;
+    }
+    Nif decryptIDdata(EncryptedData encrypData, EncryptingKey privKey) throws DecryptationException{
+        return this.nif;
     }
 
     private String byKeyWord(String keyWord) {
@@ -272,6 +293,7 @@ public class UnifiedPlatform {
     public void setPin(PINcode pin) {
         this.pin = pin;
     }
+
 
     //??? // Possibly more operations
 }

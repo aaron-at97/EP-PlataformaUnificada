@@ -1,11 +1,14 @@
 package services;
 
+        import data.EncryptingKey;
         import data.Nif;
         import data.PINcode;
         import data.Password;
         import org.junit.jupiter.api.BeforeAll;
         import org.junit.jupiter.api.Test;
         import services.exceptions.*;
+
+        import java.math.BigInteger;
         import java.util.*;
         import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,6 +58,13 @@ public class CertificationAuthorityImplTest {
 
         assertThrows(NifNotRegisteredException.class, () -> agenda.checkCredent(new Nif("756668954S"), new Password("S12a3v4652")));
         assertThrows(NotValidCredException.class, () -> agenda.checkCredent(new Nif("98748978T"), new Password("14535Da6825")));
+
+    }
+
+    @Test
+    void sendCertfAuthTest() throws Exception {
+
+        System.out.println(agenda.sendCertfAuth(new EncryptingKey(BigInteger.ONE)));
 
     }
 

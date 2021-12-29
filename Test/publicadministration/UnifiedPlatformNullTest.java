@@ -1,8 +1,6 @@
 package publicadministration;
 
-import data.Nif;
-import data.PINcode;
-import data.Password;
+import data.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,6 +86,11 @@ public class UnifiedPlatformNullTest {
                 throw new AnyMobileRegisteredException("");
             }
             return 0;
+        }
+
+        @Override
+        public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
+            return null;
         }
     }
 
