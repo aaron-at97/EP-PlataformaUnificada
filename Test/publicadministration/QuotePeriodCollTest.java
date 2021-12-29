@@ -1,14 +1,9 @@
 package publicadministration;
 
-import data.DocPath;
-import data.Nif;
-import data.exceptions.BadPathException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
-import services.exceptions.NotAffiliatedException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

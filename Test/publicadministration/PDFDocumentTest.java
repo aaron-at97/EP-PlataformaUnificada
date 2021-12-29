@@ -1,13 +1,9 @@
 package publicadministration;
 
 import data.DocPath;
-import data.Nif;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import services.exceptions.NotAffiliatedException;
-
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,4 +49,5 @@ public class PDFDocumentTest {
         assertEquals(new File("default.pdf"), pdf.getFile());
         assertNotEquals(new File("error.pdf"), pdf.getFile());
     }
+
 }
