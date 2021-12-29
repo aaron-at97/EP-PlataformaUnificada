@@ -18,8 +18,8 @@
         *  [x] MemberAccreditationDoc
         *  [ ] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
     * Services [X]
-        *  [ ] AuthoridadCertificacion
-        *  [ ] AuthoridadCertificacionImpl
+        *  [x] AuthoridadCertificacion 
+        *  [ ] AuthoridadCertificacionImpl (certificado digital)
         *  [x] SS
         *  [x] SSImpl
   * Tests
@@ -40,7 +40,7 @@
       *  [ ] UnifiedPlatformNormalTest
       *  [ ] UnifiedPlatformNullTest 
     * Services [X]
-      *  [x] AuthoridadCertificacionImplTest Digital Certification
+      *  [] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
       *  [x] SSImplTest
 
   * Documentación
