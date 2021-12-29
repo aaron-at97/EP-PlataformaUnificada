@@ -3,45 +3,45 @@
 ### Indice ###
 
   * Data
-      *  [X] NIF
-      *  [X] Password (Cl@ve permanente)
-      *  [X] PINcode
-      *  [X] DocPath
-      *  [X] AccredNumb
-      *  [x] EncryptedData
-      *  [x] EncryptingKey
+      *  [x] NIF
+      *  [x] Password (Cl@ve permanente)
+      *  [x] PINcode
+      *  [x] DocPath
+      *  [x] AccredNumb
+      *  [ ] EncryptedData
+      *  [ ] EncryptingKey
   * publicadministration
-      *  [X] QuotePeriodsColl
-      *  [X] QuotePeriods
-      *  [X] PDFDocument
-      *  [X] LaboralLifeDoc
-      *  [X] MemberAccreditationDoc
-      *  [] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
+      *  [x] QuotePeriodsColl
+      *  [x] QuotePeriods
+      *  [x] PDFDocument
+      *  [x] LaboralLifeDoc
+      *  [x] MemberAccreditationDoc
+      *  [ ] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
   * Services [X]
-      *  [X] AuthoridadCertificacion
-      *  [X] AuthoridadCertificacionImpl
-      *  [X] SS
-      *  [X] SSImpl
+      *  [ ] AuthoridadCertificacion
+      *  [ ] AuthoridadCertificacionImpl
+      *  [x] SS
+      *  [x] SSImpl
   * Tests
     * Data
-      *  [X] NIFTest
-      *  [X] PasswordTest
-      *  [X] PINcodeTest
-      *  [x] DocPathTest Falta ------------------
-      *  [X] AccredNumbTest
-      *  [x] EncryptedDataTest
-      *  [x] EncryptingKeyTest
+      *  [x] NIFTest
+      *  [x] PasswordTest
+      *  [x] PINcodeTest
+      *  [ ] DocPathTest Falta ------------------
+      *  [x] AccredNumbTest
+      *  [ ] EncryptedDataTest
+      *  [ ] EncryptingKeyTest
     * publicadministration
       *  [X] QuotePeriodsCollTest
       *  [X] QuotePeriodsTest
       *  [X] PDFDocumentTest
-      *  [X] LaboralLifeDocTest
-      *  [X] MemberAccreditationDocTest
-      *  [x] UnifiedPlatformNormalTest
-      *  [x] UnifiedPlatformNullTest 
+      *  [x] LaboralLifeDocTest
+      *  [x] MemberAccreditationDocTest
+      *  [ ] UnifiedPlatformNormalTest
+      *  [ ] UnifiedPlatformNullTest 
     * Services [X]
       *  [x] AuthoridadCertificacionImplTest Digital Certification
-      *  [X] SSImplTest
+      *  [x] SSImplTest
 
   * Documentación
-    * - [] ----------------------------
+    * - [ ] ----------------------------
