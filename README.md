@@ -39,7 +39,7 @@
       *  [x] MemberAccreditationDocTest
       *  [ ] UnifiedPlatformNormalTest
       *  [ ] UnifiedPlatformNullTest 
-    * Services [X]
+    * Services 
       *  [] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
       *  [x] SSImplTest
 
