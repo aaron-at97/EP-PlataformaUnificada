@@ -58,6 +58,4 @@ public class QuotePeriodTest {
         assertNotEquals(new Date(2022-1900, Calendar.AUGUST, 5), qPd2.getInitDay());
     }
 
-
-
 }
