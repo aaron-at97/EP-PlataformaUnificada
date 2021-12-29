@@ -16,14 +16,14 @@ import java.util.Map;
 
 public class UnifiedPlatform {
     //??? // The class members
+
     CertificationAuthority cert;
     SS ss;
     Nif nif;
     PDFDocument doc;
-    Byte opcion;
+    Byte opcion, selAuth;
     PINcode pin;
     boolean searcher, selects, selCitizens, selReports;
-    private final Date actual = new Date();
 
     public UnifiedPlatform(CertificationAuthority cert, SS ss) {
         this.searcher = false;
@@ -98,32 +98,37 @@ public class UnifiedPlatform {
     public void selectAuthMethod(byte opc) {
         if (selCitizens) {
             selReports = true;
-
+            selAuth = opc;
         } else {
-            System.out.print("Metodo que precede no realizado \\n\");");
+            System.out.print("Metodo que precede no realizado \n");
         }
 
     }
 
+    //Cl@ve PIN
     public void enterNIF_PINobt(Nif nif, Date valDate) throws NifNotRegisteredException,
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException {
-        try {
-            if (nif == null) {
-                throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+        if (selAuth==0) {
+            try {
+                if (nif == null) {
+                    throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+                }
+                if (valDate == null) {
+                    throw new IncorrectValDateException("data nula");
+                }
+                if (!cert.sendPIN(nif, valDate)) {
+                    throw new NifNotRegisteredException("No posible validar cuenta");
+                }
+                this.nif = nif;
+            } catch (ConnectException ce) {
+                throw new ConnectException();
             }
-            if (valDate == null) {
-                throw new IncorrectValDateException("data nula");
-            }
-            if (!cert.sendPIN(nif, valDate)) {
-                throw new NifNotRegisteredException("No posible validar cuenta");
-            }
-            this.nif = nif;
-        } catch (ConnectException ce) {
-            throw new ConnectException();
         }
     }
 
+    //Cl@ve PIN & Cl@ve Permanente
     public void enterPIN(PINcode pin) throws NotValidPINException, NotAffiliatedException, ConnectException {
+
         try {
             if (!cert.checkPIN(nif, pin)) {
                 throw new NotValidPINException("");
@@ -134,31 +139,51 @@ public class UnifiedPlatform {
         }
     }
 
-    //opcional
+    // Opcional Cl@ve Permanente
     public void enterCred(Nif nif, Password passw) throws NifNotRegisteredException, NotValidCredException,
             AnyMobileRegisteredException, ConnectException {
-        try {
-            byte metodo;
-            if (nif == null) {
-                throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
-            }
-            if (passw == null) {
-                throw new NotValidCredException("Password nula");
-            }
-            metodo = cert.checkCredent(nif, passw);
-            this.nif = nif;
+        if (selAuth==1) {
+            try {
+                byte metodo;
+                if (nif == null) {
+                    throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+                }
+                if (passw == null) {
+                    throw new NotValidCredException("Password nula");
+                }
+                metodo = cert.checkCredent(nif, passw);
+                this.nif = nif;
 
-            if (metodo == 0) {
-                throw new NifNotRegisteredException("NIF no registrado al sistema Permanente");
-            } else if (metodo == 1) {
-                informes();
-            } else if (metodo == 2) {
-                enterPIN(pin);
+                if (metodo == 0) {
+                    throw new NifNotRegisteredException("NIF no registrado al sistema Permanente");
+                } else if (metodo == 1) {
+                    informes();
+                } else if (metodo == 2) {
+                    enterPIN(pin);
+                }
+            } catch (ConnectException | NotAffiliatedException | NotValidPINException e) {
+                throw new ConnectException("" + e);
             }
-        } catch (ConnectException | NotAffiliatedException | NotValidPINException e) {
-            throw new ConnectException("" + e);
         }
-    } // clave permanente
+    }
+
+    // Certificado Digital
+    public void selectCertificate(byte opc){
+        if (selAuth==2) {
+
+        }
+    }
+    public void enterPassw(Password pas) throws NotValidPasswordException {
+
+    }
+    Nif decryptIDdata(EncryptedData encrypData) throws DecryptationException {
+        return this.nif;
+    }
+    Nif decryptIDdata(EncryptedData encrypData, EncryptingKey privKey) throws DecryptationException{
+        return this.nif;
+    }
+
+    // Fin Certificado Digital
 
     private void printDocument() throws BadPathException, PrintingException {
         if (doc.getPath() == null) {
@@ -193,7 +218,7 @@ public class UnifiedPlatform {
 
         try {
             doc.openDoc(path);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -214,15 +239,6 @@ public class UnifiedPlatform {
         if (!doc.getPath().equals(path)) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
-    }
-    public void selectCertificate(byte opc){ }
-    public void enterPassw(Password pas) throws NotValidPasswordException {}
-
-    Nif decryptIDdata(EncryptedData encrypData) throws DecryptationException {
-        return this.nif;
-    }
-    Nif decryptIDdata(EncryptedData encrypData, EncryptingKey privKey) throws DecryptationException{
-        return this.nif;
     }
 
     private String byKeyWord(String keyWord) {
