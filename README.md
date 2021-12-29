@@ -8,8 +8,8 @@
         *  [x] PINcode
         *  [x] DocPath
         *  [x] AccredNumb
-        *  [ ] EncryptedData
-        *  [ ] EncryptingKey
+        *  [ ] EncryptedData (certificado digital)
+        *  [ ] EncryptingKey (certificado digital)
     * publicadministration
         *  [x] QuotePeriodsColl
         *  [x] QuotePeriods
@@ -29,8 +29,8 @@
       *  [x] PINcodeTest
       *  [ ] DocPathTest Falta ------------------
       *  [x] AccredNumbTest
-      *  [ ] EncryptedDataTest
-      *  [ ] EncryptingKeyTest
+      *  [ ] EncryptedDataTest (certificado digital)
+      *  [ ] EncryptingKeyTest (certificado digital)
     * publicadministration
       *  [X] QuotePeriodsCollTest
       *  [X] QuotePeriodsTest
