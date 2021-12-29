@@ -5,6 +5,7 @@ import data.Nif;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import publicadministration.*;
+import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
 import services.exceptions.NotAffiliatedException;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class SSImplTest {
     static QuotePeriodsColl qPdC2;
 
     @BeforeAll
-    static void init(){
+    static void init() throws DuplicatedQuotedPeriodOrNullException {
 
         QuotePeriod qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
         QuotePeriod qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);

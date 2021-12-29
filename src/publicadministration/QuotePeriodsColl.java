@@ -1,5 +1,7 @@
 package publicadministration;
 
+import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +19,16 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
 
 // the getters
 
-    public void addQuotePeriod(QuotePeriod qPd) {
+    public void addQuotePeriod(QuotePeriod qPd) throws DuplicatedQuotedPeriodOrNullException {
         int len = listQuote.size();
         boolean flag = false;
+        if (qPd==null) {
+            throw new DuplicatedQuotedPeriodOrNullException("Elemento nulo");
+        }
         for (int i = 0; i < len; i++) {
+            if (qPd.getInitDay().equals(listQuote.get(i).getInitDay())) {
+                throw new DuplicatedQuotedPeriodOrNullException("Elemento duplicado");
+            }
             if (qPd.getInitDay().before(listQuote.get(i).getInitDay()) && !flag) {
                 listQuote.add(i, qPd);
                 flag = true;
