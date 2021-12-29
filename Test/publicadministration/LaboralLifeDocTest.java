@@ -3,6 +3,7 @@ package publicadministration;
 import data.Nif;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class LaboralLifeDocTest {
     static LaboralLifeDoc lLd, lLd2;
 
     @BeforeEach
-    void init(){
+    void init() throws DuplicatedQuotedPeriodOrNullException {
 
         QuotePeriod qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
         QuotePeriod qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);

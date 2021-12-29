@@ -1,9 +1,12 @@
 package publicadministration;
 
 import data.DocPath;
+import data.Nif;
 import data.exceptions.BadPathException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
+import services.exceptions.NotAffiliatedException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class QuotePeriodCollTest {
 
@@ -30,7 +33,7 @@ public class QuotePeriodCollTest {
     }
 
     @Test
-    void addPeriodTest() {
+    void addPeriodTest() throws DuplicatedQuotedPeriodOrNullException {
 
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
@@ -41,8 +44,16 @@ public class QuotePeriodCollTest {
         listQuote.add(qPd3);
         listQuote.add(qPd);
         listQuote.add(qPd2);
-
+        System.out.println(qPdC.getListQuote());
         assertEquals(listQuote, qPdC.getListQuote());
+    }
+
+    @Test
+    void addPeriodThrowsTest() throws DuplicatedQuotedPeriodOrNullException {
+
+        assertThrows(DuplicatedQuotedPeriodOrNullException.class, () ->  qPdC.addQuotePeriod(null));
+        qPdC.addQuotePeriod(qPd);
+        assertThrows(DuplicatedQuotedPeriodOrNullException.class, () -> qPdC.addQuotePeriod(qPd));
 
     }
 
