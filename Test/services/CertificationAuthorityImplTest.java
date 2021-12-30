@@ -1,14 +1,9 @@
 package services;
 
-        import data.EncryptingKey;
-        import data.Nif;
-        import data.PINcode;
-        import data.Password;
+        import data.*;
         import org.junit.jupiter.api.BeforeAll;
         import org.junit.jupiter.api.Test;
         import services.exceptions.*;
-
-        import java.math.BigInteger;
         import java.util.*;
         import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,7 +59,19 @@ public class CertificationAuthorityImplTest {
     @Test
     void sendCertfAuthTest() throws Exception {
 
-        System.out.println(agenda.sendCertfAuth(new EncryptingKey(BigInteger.ONE)));
+        Decryptor decrypt = new Decryptor();
+        Map<EncryptingKey, Nif > certDigital = new HashMap<>();
+
+        EncryptingKey key = new EncryptingKey(decrypt.getPublicKey().getKey());
+        certDigital.put(key, new Nif("19874897B"));
+
+        agenda = new CertificationAuthorityImpl(certDigital);
+
+        EncryptedData cipherText = agenda.sendCertfAuth(key);
+
+        System.out.println("CHIPHER:" + cipherText);
+        String decryptedText = decrypt.getDecrypted(new String(cipherText.getData()), decrypt.getPrivateKey());
+        System.out.println("DECRYPTED STRING:" + decryptedText);
 
     }
 
