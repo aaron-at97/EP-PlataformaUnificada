@@ -1,19 +1,29 @@
 package services;
 
         import data.*;
-        import org.junit.jupiter.api.BeforeAll;
+        import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
         import services.exceptions.*;
+
+        import java.math.BigInteger;
         import java.util.*;
         import static org.junit.jupiter.api.Assertions.*;
 
 public class CertificationAuthorityImplTest {
 
     static CertificationAuthority agenda;
+    Decryptor decrypt;
+    Map<EncryptingKey, Nif > certDigital;
+    EncryptingKey key;
+    @BeforeEach
+    void init() throws Exception {
 
-    @BeforeAll
-    static void init(){
         agenda = new CertificationAuthorityImpl();
+        decrypt = new Decryptor();
+        certDigital = new HashMap<>();
+        key = new EncryptingKey(decrypt.getPublicKey().getKey());
+        certDigital.put(key, new Nif("19874897B"));
+
     }
 
     @Test
@@ -59,12 +69,6 @@ public class CertificationAuthorityImplTest {
     @Test
     void sendCertfAuthTest() throws Exception {
 
-        Decryptor decrypt = new Decryptor();
-        Map<EncryptingKey, Nif > certDigital = new HashMap<>();
-
-        EncryptingKey key = new EncryptingKey(decrypt.getPublicKey().getKey());
-        certDigital.put(key, new Nif("19874897B"));
-
         agenda = new CertificationAuthorityImpl(certDigital);
 
         EncryptedData cipherText = agenda.sendCertfAuth(key);
@@ -72,6 +76,14 @@ public class CertificationAuthorityImplTest {
         System.out.println("CHIPHER:" + cipherText);
         String decryptedText = decrypt.getDecrypted(new String(cipherText.getData()), decrypt.getPrivateKey());
         System.out.println("DECRYPTED STRING:" + decryptedText);
+
+    }
+    @Test
+    void sendCertfAuthErroresTest() {
+
+        agenda = new CertificationAuthorityImpl(certDigital);
+        assertThrows(NotValidCertificateException.class, () -> agenda.sendCertfAuth(new EncryptingKey(BigInteger.ONE)));
+        assertThrows(NotValidCertificateException.class, () -> agenda.sendCertfAuth(null));
 
     }
 
