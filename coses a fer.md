@@ -14,7 +14,7 @@ Classe AccredNumb (FET)
 
 Classe DocPath (FET)
 
-Classe EncryptedData
+Classe EncryptedData (FET)
 
 Classe EncryptingKey
 
