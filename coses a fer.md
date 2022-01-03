@@ -12,7 +12,7 @@ Classe NIF (FET)
 
 Classe AccredNumb (FET)
 
-Classe DocPath
+Classe DocPath (FET)
 
 Classe EncryptedData
 
