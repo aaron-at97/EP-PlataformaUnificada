@@ -42,7 +42,7 @@ Paquet publicadministration
 
 Classe QuotePeriodColl (FET)
 
-Classe QuotePeriod
+Classe QuotePeriod (FET)
 
 Classe PDFDocument
 
