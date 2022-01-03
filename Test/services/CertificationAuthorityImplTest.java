@@ -70,8 +70,11 @@ public class CertificationAuthorityImplTest {
     void sendCertfAuthTest() throws Exception {
 
         agenda = new CertificationAuthorityImpl(certDigital);
-
+        System.out.println(key);
         EncryptedData cipherText = agenda.sendCertfAuth(key);
+
+        Decryptor decryptor = new Decryptor();
+        System.out.println(key);
 
         System.out.println("CHIPHER:" + cipherText);
         String decryptedText = decrypt.getDecrypted(new String(cipherText.getData()), decrypt.getPrivateKey());

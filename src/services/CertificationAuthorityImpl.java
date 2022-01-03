@@ -13,6 +13,7 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
     Map<Nif, Date> listClave = new HashMap<>();
     Map<Nif, PINcode> generatePIN = new HashMap<>();
     Map<EncryptingKey, Nif > certDigital = new HashMap<>();
+    Map<Nif, String> telNum = new HashMap<>();
 
     public CertificationAuthorityImpl(Map<EncryptingKey, Nif > certDigital) {
         cuentasCertDigital(certDigital);
@@ -25,6 +26,9 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
     public boolean sendPIN(Nif nif, Date date) throws NifNotRegisteredException, IncorrectValDateException, AnyMobileRegisteredException, ConnectException {
         if (!this.listClave.containsKey(nif)) {
             throw new NifNotRegisteredException("");
+        }
+        if (telNum.get(nif) == null) {
+            throw new AnyMobileRegisteredException("");
         }
         boolean res = buscarCheckNif(nif, date);
 
@@ -46,7 +50,6 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         if (!this.generatePIN.containsKey(nif) || !this.generatePIN.get(nif).equals(pin)) {
             throw new NotValidPINException("");
         }
-
         try {
             return this.generatePIN.get(nif).equals(pin);
         } catch (Exception e) {
@@ -60,6 +63,11 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         if (!this.listTypePermanente.containsKey(nif)) {
             throw new NifNotRegisteredException("");
         }
+
+        if (telNum.get(nif) == null) {
+            throw new AnyMobileRegisteredException("");
+        }
+
         if (this.listTypePermanente.get(nif)==0 ) {
             return 0;
         }
@@ -68,7 +76,6 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         }
 
         try {
-
             if (this.listTypePermanente.get(nif) == 2) {
                 generatePIN(nif);
             }
@@ -88,7 +95,9 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
             throw new NotValidCertificateException("");
         }
         try {
-            return null;
+
+            Decryptor decryptor = new Decryptor();
+            return new EncryptedData(decryptor.getEncrypted(this.certDigital.get(pubKey), pubKey).getBytes());
 
         } catch (Exception e) {
             throw new ConnectException("");
@@ -99,7 +108,6 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         return this.listClave.containsKey(nif) && this.listClave.get(nif).equals(date);
     }
 
-
     private boolean buscarCheckPermanent(Nif nif, Password passw) {
         return this.listPermanente.get(nif).equals(passw);
     }
@@ -108,11 +116,10 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         this.generatePIN.put(nif, new PINcode("123"));
     }
 
-
     private void cuentasCertDigital(Map<EncryptingKey, Nif > certDigital) {
         this.certDigital = certDigital;
-
     }
+
     private void cuentasClave2() {
 
         this.listClave.put(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
@@ -120,6 +127,9 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         this.listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
         this.listPermanente.put(new Nif("98748978T"), new Password("56835Da6825"));
 
+        this.telNum.put(new Nif("78545954N"),"6123456789");
+        this.telNum.put(new Nif("98748978T"),"665987123");
+        this.telNum.put(new Nif("59168954S"),"656421789");
 
         this.listTypePermanente.put(new Nif("78545954N"), (byte) 0);
         this.listTypePermanente.put(new Nif("28148954S"), (byte) 0);
@@ -127,4 +137,6 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
         this.listTypePermanente.put(new Nif("98748978T"), (byte) 2);
 
     }
+
+
 }
