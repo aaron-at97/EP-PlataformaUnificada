@@ -51,7 +51,9 @@
     *  [ ] Implementacion paquete dataTest
     *  [ ] Implementacion paquete servicesTest
     *  [ ] Implementacion paquete publicadministrationTest
-    *  [ ] Principios SOLID reflejas en la práctica
-    *  [ ] Patrones Grasp reflejados en la práctica
-    *  [ ] Observaciones
-Tot el relatiu a la documentació dels testos és competència del Pau
+    
+    *  [ ] Principios SOLID reflejas en la práctica (Aarón)
+    *  [ ] Patrones Grasp reflejados en la práctica (Aarón)
+    *  [ ] Observaciones (Aarón)
+    *  
+    Tot el relatiu a la documentació dels testos és competència del Pau
