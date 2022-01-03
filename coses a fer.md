@@ -48,48 +48,6 @@ Classe PDFDocument (FET)
 
 Classe LaboralLifeDoc (FET)
 
-Classe MemberAccreditationDoc
+Classe MemberAccreditationDoc (FET)
 
 Classe UnifiedPlatform
-
-Tests:
-
-Paquet data
-
-Classe NIF
-
-Classe AccredNumbTest
-
-Classe DocPathTest
-
-Classe EncryptedDataTest
-
-Classe EncryptingKeyTest
-
-Classe PINcodeTest
-
-Classe PasswordTest
-
-Paquet Services
-
-Classe CertificationAuthorityImplTest
-
-Classe SSImplTest
-
-
-
-Paquet publicadministration
-
-Classe QuotePeriodCollTest
-
-Classe QuotePeriodTest
-
-Classe PDFDocumentTest
-
-Classe LaboralLifeDocTest
-
-Classe MemberAccreditationDocTest
-
-Classe UnifiedPlatformNormalTest
-
-Classe UnifiedPlatformNullTest
