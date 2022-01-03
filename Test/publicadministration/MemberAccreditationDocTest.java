@@ -23,6 +23,8 @@ public class MemberAccreditationDocTest {
     @Test
     void getAccredNumbTest() {
 
+        assertEquals(mAcrD, new MemberAccreditationDoc(new Nif("78545954N"), new AccredNumb("252132563551")));
+
         assertEquals(new AccredNumb("252132563551"), mAcrD.getNumAffil());
         assertEquals(new AccredNumb("360138569551"), mAcrD2.getNumAffil());
         assertNotEquals(new AccredNumb("265924565924"), mAcrD.getNumAffil());

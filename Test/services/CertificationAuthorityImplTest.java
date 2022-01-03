@@ -15,6 +15,7 @@ public class CertificationAuthorityImplTest {
     Decryptor decrypt;
     Map<EncryptingKey, Nif > certDigital;
     EncryptingKey key;
+
     @BeforeEach
     void init() throws Exception {
 
@@ -73,8 +74,9 @@ public class CertificationAuthorityImplTest {
         System.out.println(key);
         EncryptedData cipherText = agenda.sendCertfAuth(key);
 
-        Decryptor decryptor = new Decryptor();
         System.out.println(key);
+        assertEquals(decrypt.getEncrypted(certDigital.get(key), key) ,agenda.sendCertfAuth(key).getData());
+
 
         System.out.println("CHIPHER:" + cipherText);
         String decryptedText = decrypt.getDecrypted(new String(cipherText.getData()), decrypt.getPrivateKey());

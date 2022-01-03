@@ -44,6 +44,8 @@ public class LaboralLifeDocTest {
         assertNotEquals(qPdC2,  lLd.getQuotePds());
         assertNotEquals(qPdC, lLd2.getQuotePds());
 
+        assertEquals(new LaboralLifeDoc(new Nif("78545954N"),qPdC), lLd);
+
     }
 
     @Test

@@ -37,6 +37,7 @@ public class MemberAccreditationDoc extends PDFDocument {
     public void setFile(File file) {
         super.setFile(file);
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

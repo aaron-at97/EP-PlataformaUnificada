@@ -4,6 +4,7 @@ import publicadministration.exceptions.DuplicatedQuotedPeriodOrNullException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class QuotePeriodsColl { // Represents the total quote periods known as a registered worker
     // Its components, that is, the set of quote periods
@@ -17,7 +18,6 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
         return listQuote;
     }
 
-// the getters
 
     public void addQuotePeriod(QuotePeriod qPd) throws DuplicatedQuotedPeriodOrNullException {
         int len = listQuote.size();
@@ -39,8 +39,19 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
             listQuote.add(qPd);
         }
 
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuotePeriodsColl that = (QuotePeriodsColl) o;
+        return Objects.equals(listQuote, that.listQuote);
+    }
 
-    } // Adds a quote period, always respecting the sorting by date, from oldest to later in time
+    @Override
+    public int hashCode() {
+        return Objects.hash(listQuote);
+    }
 
     @Override
     public String toString() {
@@ -48,6 +59,5 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
                 "listQuote=" + listQuote +
                 '}';
     }
-    //public String toString () {} // Converts to String
 
 }
