@@ -10,7 +10,7 @@ import services.exceptions.NotAffiliatedException;
 import java.net.ConnectException;
 import java.util.*;
 
-public class SSImpl {
+public class SSImpl implements SS {
 
     private List<LaboralLifeDoc> listLaboral = new ArrayList<>();
     private List<MemberAccreditationDoc> listMembAccred= new ArrayList<>();

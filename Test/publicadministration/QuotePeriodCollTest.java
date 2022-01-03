@@ -41,6 +41,7 @@ public class QuotePeriodCollTest {
         listQuote.add(qPd2);
         System.out.println(qPdC.getListQuote());
         assertEquals(listQuote, qPdC.getListQuote());
+
     }
 
     @Test
