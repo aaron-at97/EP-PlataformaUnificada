@@ -44,7 +44,7 @@ Classe QuotePeriodColl (FET)
 
 Classe QuotePeriod (FET)
 
-Classe PDFDocument
+Classe PDFDocument (FET)
 
 Classe LaboralLifeDoc
 
