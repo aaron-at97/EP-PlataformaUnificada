@@ -27,6 +27,12 @@ public class PDFDocument { // Represents a PDF document
         this.file = new File("default.pdf");
     }
 
+    public PDFDocument(File file) {
+        this.creatDate = new Date();
+        this.path = new DocPath("src/Docs/");;
+        this.file = file;
+    }
+
     public Date getCreatDate() {
         return creatDate;
     }

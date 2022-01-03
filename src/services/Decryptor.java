@@ -1,7 +1,9 @@
 package services;
 
+import data.EncryptedData;
 import data.EncryptingKey;
 import data.Nif;
+import publicadministration.exceptions.DecryptationException;
 
 import javax.crypto.*;
 import java.math.BigInteger;
@@ -26,19 +28,36 @@ public class Decryptor {
 
     }
 
+    public Nif decryptIDdata(EncryptedData encrypData, EncryptingKey privKey) throws Exception {
+
+        String decryptedText;
+
+        try {
+            decryptedText = getDecrypted(new String(encrypData.getData()), privKey);
+        } catch (Exception e) {
+            throw new Exception("");
+        }
+
+        if (decryptedText == null) {
+            throw new DecryptationException("");
+        }
+
+        return new Nif(decryptedText);
+    }
+
     public String getEncrypted(Nif nif, EncryptingKey pubKey) throws Exception {
 
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(new String(pubKey.getKey().toByteArray()))));
 
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        System.out.println(nif.getNif().getBytes());
+
         byte[] encryptedbytes = cipher.doFinal(nif.getNif().getBytes());
         return new String(Base64.getEncoder().encode(encryptedbytes));
 
     }
 
-    public String getDecrypted(String data, EncryptingKey priKey) throws Exception {
+    public String getDecrypted(String data, EncryptingKey priKey) throws Exception, DecryptationException {
 
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         PrivateKey pk = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(Base64.getDecoder().decode(new String(priKey.getKey().toByteArray()))));
@@ -50,9 +69,6 @@ public class Decryptor {
     }
 
     public EncryptingKey getPublicKey() {
-        /*BigInteger result = getPublicKey();
-        System.out.println(result);
-        System.out.println(new String(result.toByteArray()));*/
 
         String pubKey = new String(Base64.getEncoder().encode(this.keyPair.getPublic().getEncoded()));
 

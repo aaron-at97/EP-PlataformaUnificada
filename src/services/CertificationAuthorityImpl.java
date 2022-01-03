@@ -83,13 +83,12 @@ public class CertificationAuthorityImpl implements CertificationAuthority {
 
     @Override
     public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException, ConnectException {
+
         if (!this.certDigital.containsKey(pubKey) || this.certDigital.get(pubKey) == null) {
             throw new NotValidCertificateException("");
         }
         try {
-            Decryptor decrypt = new Decryptor();
-            System.out.println(this.certDigital.get(pubKey));
-            return new EncryptedData(decrypt.getEncrypted(this.certDigital.get(pubKey), pubKey).getBytes());
+            return null;
 
         } catch (Exception e) {
             throw new ConnectException("");
