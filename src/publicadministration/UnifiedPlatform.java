@@ -6,7 +6,7 @@ import publicadministration.exceptions.*;
 import services.*;
 import services.exceptions.*;
 
-import java.math.BigInteger;
+
 import java.net.ConnectException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -24,18 +24,15 @@ public class UnifiedPlatform {
     PDFDocument doc;
     byte opcion, opAuth;
     PINcode pin;
-    boolean searcher, selects, selCitizens, selReports, selAuth, checkPIN;
+    EncryptedData data;
+    EncryptingKey key;
+    EncryptingKey priKey;
+    Password password;
+    boolean searcher , selects, selCitizens, selReports, selAuth, checkPIN;
 
     public UnifiedPlatform(CertificationAuthority cert, SS ss) {
-        this.searcher = false;
-        this.selects = false;
-        this.selCitizens = false;
-        this.selAuth = false;
-        this.selReports = false;
-        this.checkPIN = false;
         this.cert = cert;
         this.ss = ss;
-        this.pin = null;
         this.doc = new PDFDocument();
     }
 
@@ -173,21 +170,22 @@ public class UnifiedPlatform {
 
     public void selectCertificate(byte opc) {
         if (opAuth == 2) {
-
+            setPassword(checkCertificate(opc));
         }
     }
 
     public void enterPassw(Password pas) throws NotValidPasswordException {
 
-        if (pas==null) {
+        if (!getPassword().equals(pas)) {
             throw new NotValidPasswordException("");
         }
 
         try {
             Decryptor decryptor = new Decryptor();
-            EncryptingKey keyPub = decryptor.getPublicKey();
-
-            cert.sendCertfAuth(keyPub);
+            setKey(decryptor.getPublicKey());
+            priKey = decryptor.getPrivateKey();
+            System.out.println(getKey());
+            data = cert.sendCertfAuth(getKey());
 
         } catch (NoSuchAlgorithmException | NotValidCertificateException | ConnectException e) {
             throw new NotValidPasswordException("" + e);
@@ -202,32 +200,30 @@ public class UnifiedPlatform {
 
         try {
             Decryptor decryptor = new Decryptor();
-            this.nif = decryptor.decryptIDdata(encrypData, decryptor.getPrivateKey());
+
+            this.nif = decryptor.decryptIDdata(encrypData, priKey);
+
             if (this.nif == null) {
                 throw new DecryptationException(" Error al desencriptado del nif");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return this.nif;
     }
 
-
     // Fin Certificado Digital
 
 
     private void printDocument() throws BadPathException, PrintingException {
     }
-
     private void downloadDocument() {
     }
-
     private void selectPath(DocPath path) throws BadPathException {
     }
-
     private void printDocument(DocPath path) throws BadPathException, PrintingException {
     }
-
     private void downloadDocument(DocPath path) throws BadPathException {
     }
 
@@ -251,9 +247,25 @@ public class UnifiedPlatform {
         throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
     }
 
-    private void OpenDocument(DocPath path) throws BadPathException {
+    private Password checkCertificate(byte opc) {
 
-        if (!doc.getPath().equals(path)) {
+        Map<Byte, Password> listCertificate = new HashMap<>();
+        listCertificate.put((byte) 0, new Password("1654654646adsa"));
+        listCertificate.put((byte) 1, new Password("68bb6bva1asa"));
+        listCertificate.put((byte) 2, new Password("A4d1321dww12"));
+        listCertificate.put((byte) 3, new Password("46as4d13asd"));
+
+        if (listCertificate.containsKey(opc)) {
+            return listCertificate.get(opc);
+        }
+
+        return null;
+
+    }
+
+    public void OpenDocument(DocPath path) throws BadPathException {
+
+        if (path==null) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
 
@@ -279,8 +291,8 @@ public class UnifiedPlatform {
         }
     }
 
-    public CertificationAuthority getCert() {
-        return cert;
+    public void setCert(CertificationAuthority cert) {
+        this.cert = cert;
     }
 
     public SS getSs() {
@@ -321,5 +333,31 @@ public class UnifiedPlatform {
 
     public void setAccreditationDoc(MemberAccreditationDoc accreditationDoc) {
         this.accreditationDoc = accreditationDoc;
+    }
+    public PDFDocument getDoc() {
+        return doc;
+    }
+    public EncryptedData getData() {
+        return data;
+    }
+
+    public void setData(EncryptedData data) {
+        this.data = data;
+    }
+
+    public EncryptingKey getKey() {
+        return key;
+    }
+
+    public void setKey(EncryptingKey key) {
+        this.key = key;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
     }
 }
