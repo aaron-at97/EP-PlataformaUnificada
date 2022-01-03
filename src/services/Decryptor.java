@@ -49,7 +49,7 @@ public class Decryptor {
 
     }
 
-    public EncryptingKey getPublicKey() throws NoSuchAlgorithmException {
+    public EncryptingKey getPublicKey() {
         /*BigInteger result = getPublicKey();
         System.out.println(result);
         System.out.println(new String(result.toByteArray()));*/
@@ -60,7 +60,7 @@ public class Decryptor {
         return new EncryptingKey(new BigInteger(inputStringBytes));
     }
 
-    public EncryptingKey getPrivateKey() throws NoSuchAlgorithmException {
+    public EncryptingKey getPrivateKey(){
 
         String priKey = new String(Base64.getEncoder().encode(this.keyPair.getPrivate().getEncoded()));
 
