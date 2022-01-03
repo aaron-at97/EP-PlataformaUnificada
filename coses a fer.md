@@ -1,4 +1,4 @@
-# EP-PlataformaUnificada
+# EP-PlataformaUnificada - Documentació
 
 Introducció: (FET)
 
@@ -22,7 +22,7 @@ Classe PINcode (FET)
 
 Classe Password (FET)
 
-Paquet Services
+Paquet Services (FET)
 
 Excepcions (FET)
 
@@ -32,11 +32,11 @@ Interfície CertificationAuthority (FET)
 
 Interfície SS (FET)
 
-Classes
+Classes (FET)
 
-Classe CertificationAuthorityImpl
+Classe CertificationAuthorityImpl (FET)
 
-Classe SSImpl
+Classe SSImpl (FET)
 
 Paquet publicadministration
 
