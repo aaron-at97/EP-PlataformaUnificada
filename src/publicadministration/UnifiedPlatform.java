@@ -190,6 +190,8 @@ public class UnifiedPlatform {
     private void downloadDocument() {}
     private void selectPath(DocPath path) throws BadPathException {}
 
+    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
+    private void downloadDocument(DocPath path) throws BadPathException {}
     // Other operations
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
 
@@ -210,7 +212,7 @@ public class UnifiedPlatform {
         throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
     }
 
-    void OpenDocument(DocPath path) throws BadPathException {
+    private void OpenDocument(DocPath path) throws BadPathException {
 
         if (!doc.getPath().equals(path)) {
             throw new BadPathException("Ruta tramites incorrecta");
@@ -223,8 +225,6 @@ public class UnifiedPlatform {
         }
 
     }
-    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
-    private void downloadDocument(DocPath path) throws BadPathException {}
 
     private void informes() throws NotAffiliatedException, ConnectException {
         if (opcion == 0) {
@@ -256,20 +256,8 @@ public class UnifiedPlatform {
         this.nif = nif;
     }
 
-    public PDFDocument getDoc() {
-        return doc;
-    }
-
-    public void setDoc(PDFDocument doc) {
-        this.doc = doc;
-    }
-
     public PINcode getPin() {
         return pin;
-    }
-
-    public void setPin(PINcode pin) {
-        this.pin = pin;
     }
 
     public void setCheckPIN(boolean checkPIN) {
