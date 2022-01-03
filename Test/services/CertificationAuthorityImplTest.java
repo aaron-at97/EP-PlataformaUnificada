@@ -75,6 +75,7 @@ public class CertificationAuthorityImplTest {
         assertEquals("19874897B", decryptedText);
 
     }
+
     @Test
     void sendCertfAuthErroresTest() {
 

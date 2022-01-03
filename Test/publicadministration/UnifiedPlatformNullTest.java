@@ -1,7 +1,6 @@
 package publicadministration;
 
 import data.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import publicadministration.exceptions.AnyKeyWordProcedureException;
@@ -31,8 +30,9 @@ public class UnifiedPlatformNullTest {
     static Map<Nif, Date> listClave = new HashMap<>();
     static Map<Nif, String> telNum = new HashMap<>();
 
-    @BeforeAll
-    static void init() {
+
+    @BeforeEach
+    void setUp() {
 
         ss = new SSTest();
 
@@ -40,10 +40,7 @@ public class UnifiedPlatformNullTest {
         listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
 
         datosCertificationAuth = new CertAuthorityTest();
-    }
 
-    @BeforeEach
-    void setUp() {
         up = new UnifiedPlatform(datosCertificationAuth, ss);
     }
 
@@ -166,8 +163,18 @@ public class UnifiedPlatformNullTest {
 
     }
 
-    private static class CertAuthorityTest implements CertificationAuthority {
+    @Test
+    void selcheckCertDigitalDecryptThrowsTest() {
+        up.selects();
+        up.selectCitizens();
+        up.selectReports();
+        up.selectCertificationReport((byte) 1);
+        up.selectAuthMethod((byte) 2);
+        up.selectCertificate((byte) 1);
+        assertThrows(NotValidCertificateException.class, () -> datosCertificationAuth.sendCertfAuth(null));
+    }
 
+    private static class CertAuthorityTest implements CertificationAuthority {
         @Override
         public boolean sendPIN(Nif nif, Date date) throws IncorrectValDateException, AnyMobileRegisteredException {
             if (!(listClave.containsKey(nif) && listClave.get(nif).equals(date))) {
@@ -177,7 +184,6 @@ public class UnifiedPlatformNullTest {
             }
             return false;
         }
-
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return false;
@@ -192,13 +198,11 @@ public class UnifiedPlatformNullTest {
             }
             return 0;
         }
-
         @Override
-        public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
-            return null;
+        public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException {
+            throw new NotValidCertificateException("");
         }
     }
-
 
     private static class SSTest implements SS {
         @Override

@@ -5,23 +5,26 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import publicadministration.exceptions.AnyKeyWordProcedureException;
-import services.*;
+import services.CertificationAuthority;
+import services.Decryptor;
+import services.SS;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class UnifiedPlatformNormalTest {
+public class UnifiedPlatformPermanenteTest {
 
     static CertificationAuthority datosCertificationAuth;
     static SS ss;
     static UnifiedPlatform up;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
     static Map<Nif, Password> listPermanente = new HashMap<>();
-    static Map<Nif, Date> listClave = new HashMap<>();
     static Map<Nif, String> telNum = new HashMap<>();
     static Map<Nif, Byte> listTypePermanente = new HashMap<>();
     static LaboralLifeDoc laboralLife;
@@ -39,76 +42,25 @@ public class UnifiedPlatformNormalTest {
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
         qPdC.addQuotePeriod(qPd3);
-        laboralLife = new LaboralLifeDoc(new Nif("7854954N"), qPdC);
-        accreditationDoc = new MemberAccreditationDoc(new Nif("7854954N"), new AccredNumb("252132563551"));
-
-        ss = new SSTest();
-
-        listClave.put(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
-        listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
-        listPermanente.put(new Nif("98748978T"), new Password("56835Da6825"));
-
-        telNum.put(new Nif("78545954N"),"6123456789");
-        telNum.put(new Nif("98748978T"),"665987123");
-        telNum.put(new Nif("59168954S"),"656421789");
-
-        listTypePermanente.put(new Nif("78545954N"), (byte) 0);
-        listTypePermanente.put(new Nif("28148954S"), (byte) 0);
-        listTypePermanente.put(new Nif("59168954S"), (byte) 1);
-        listTypePermanente.put(new Nif("98748978T"), (byte) 2);
-        datosCertificationAuth = new CertAuthorityTest();
-
     }
 
     @BeforeEach
     void setUp() {
+
+        ss = new SSTest();
+
+        listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
+        listPermanente.put(new Nif("98748978T"), new Password("56835Da6825"));
+
+        telNum.put(new Nif("98748978T"),"665987123");
+        telNum.put(new Nif("59168954S"),"656421789");
+
+        listTypePermanente.put(new Nif("59168954S"), (byte) 1);
+        listTypePermanente.put(new Nif("98748978T"), (byte) 2);
+
+        datosCertificationAuth = new CertAuthorityTest();
+
         up = new UnifiedPlatform(datosCertificationAuth, ss);
-    }
-
-    @Test
-    void procesSearcherKeyWordTest() throws Exception {
-        up.processSearcher();
-        System.setOut(new PrintStream(outContent));
-        up.enterKeyWords("vida laboral");
-
-        assertEquals("SS", outContent.toString());
-        System.setOut(originalOut);
-    }
-
-    @Test
-    void procesSearcherKeyWordThrowsTest() {
-        up.processSearcher();
-        assertThrows(AnyKeyWordProcedureException.class, () -> up.enterKeyWords("lab"));
-    }
-
-    @Test
-    void selClavePINTest() throws Exception {
-
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 0);
-        up.selectAuthMethod((byte) 0);
-        up.enterNIF_PINobt(new Nif("78545954N"),
-                new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
-        up.enterPIN(new PINcode("123"));
-        assertEquals(up.getLaboralLifeDoc(), up.getSs().getLaboralLife(up.nif));
-
-    }
-
-    @Test
-    void selClavePINMemberAccredTest() throws Exception {
-
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 0);
-        up.enterNIF_PINobt(new Nif("78545954N"),
-                new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
-        up.enterPIN(new PINcode("123"));
-
-        assertEquals(up.getAccreditationDoc(), up.getSs().getMembAccred(up.nif));
     }
 
     @Test
@@ -121,7 +73,9 @@ public class UnifiedPlatformNormalTest {
         up.selectAuthMethod((byte) 1);
         up.enterCred(new Nif("59168954S"), new Password("S12a3v4652"));
 
-        assertEquals(up.getLaboralLifeDoc(), up.getSs().getLaboralLife(up.nif));
+        laboralLife = new LaboralLifeDoc(new Nif("59168954S"), qPdC);
+
+        assertEquals(laboralLife, up.getSs().getLaboralLife(up.nif));
     }
 
     @Test
@@ -134,7 +88,9 @@ public class UnifiedPlatformNormalTest {
         up.selectAuthMethod((byte) 1);
         up.enterCred(new Nif("59168954S"), new Password("S12a3v4652"));
 
-        assertEquals(up.getAccreditationDoc(), up.getSs().getMembAccred(up.nif));
+        accreditationDoc = new MemberAccreditationDoc(new Nif("59168954S"), new AccredNumb("252132563551"));
+
+        assertEquals(accreditationDoc, up.getSs().getMembAccred(up.nif));
     }
 
     @Test
@@ -147,7 +103,11 @@ public class UnifiedPlatformNormalTest {
         up.selectAuthMethod((byte) 1);
         up.enterCred(new Nif("98748978T"), new Password("56835Da6825"));
         up.enterPIN(new PINcode("123"));
-        assertEquals(up.getLaboralLifeDoc(), up.getSs().getLaboralLife(up.nif));
+
+        laboralLife = new LaboralLifeDoc(new Nif("98748978T"), qPdC);
+
+        assertEquals(laboralLife, up.getSs().getLaboralLife(up.nif));
+
     }
 
     @Test
@@ -160,8 +120,12 @@ public class UnifiedPlatformNormalTest {
         up.selectAuthMethod((byte) 1);
         up.enterCred(new Nif("98748978T"), new Password("56835Da6825"));
         up.enterPIN(new PINcode("123"));
-        assertEquals(up.getAccreditationDoc(), up.getSs().getMembAccred(up.nif));
+
+        accreditationDoc = new MemberAccreditationDoc(new Nif("98748978T"), new AccredNumb("126984823551"));
+
+        assertEquals(accreditationDoc, up.getSs().getMembAccred(up.nif));
     }
+
 
     private static class CertAuthorityTest implements CertificationAuthority {
 
@@ -184,6 +148,7 @@ public class UnifiedPlatformNormalTest {
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
             return null;
         }
+
     }
 
 
@@ -198,4 +163,5 @@ public class UnifiedPlatformNormalTest {
             return accreditationDoc;
         }
     }
+
 }
