@@ -2,6 +2,7 @@ package publicadministration;
 
 import data.*;
 
+import java.io.File;
 import java.util.Objects;
 
 public class MemberAccreditationDoc extends PDFDocument {
@@ -23,6 +24,19 @@ public class MemberAccreditationDoc extends PDFDocument {
         return numAffil;
     }
 
+    @Override
+    public File getFile() {
+        return super.getFile();
+    }
+
+    @Override
+    public DocPath getPath() {
+        return super.getPath();
+    }
+    @Override
+    public void setFile(File file) {
+        super.setFile(file);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

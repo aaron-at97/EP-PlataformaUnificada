@@ -6,8 +6,6 @@ import publicadministration.exceptions.*;
 import services.*;
 import services.exceptions.*;
 
-
-import java.io.IOException;
 import java.net.ConnectException;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +19,7 @@ public class UnifiedPlatform {
     SS ss;
     Nif nif;
     PDFDocument doc;
-    Byte opcion, selAuth;
+    byte opcion, selAuth;
     PINcode pin;
     boolean searcher, selects, selCitizens, selReports;
 
@@ -229,9 +227,7 @@ public class UnifiedPlatform {
         if (!doc.getPath().equals(path)) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
-        if (opcion == null) {
-            throw new PrintingException(" Error al printar, tramite vacio");
-        }
+
         System.out.println("Okay");
     }
 

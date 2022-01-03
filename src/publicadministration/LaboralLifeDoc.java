@@ -1,7 +1,8 @@
 package publicadministration;
 
-import data.Nif;
+import data.*;
 
+import java.io.File;
 import java.util.Objects;
 
 public class LaboralLifeDoc extends PDFDocument { // Represents the laboral life
@@ -23,16 +24,32 @@ public class LaboralLifeDoc extends PDFDocument { // Represents the laboral life
     }
 
     @Override
+    public File getFile() {
+        return super.getFile();
+    }
+
+    @Override
+    public DocPath getPath() {
+        return super.getPath();
+    }
+
+    @Override
+    public void setFile(File file) {
+        super.setFile(file);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         LaboralLifeDoc that = (LaboralLifeDoc) o;
         return Objects.equals(nif, that.nif) && Objects.equals(quotePds, that.quotePds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nif, quotePds);
+        return Objects.hash(super.hashCode(), nif, quotePds);
     }
 
     @Override
