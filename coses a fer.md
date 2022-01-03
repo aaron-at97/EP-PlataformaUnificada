@@ -48,7 +48,7 @@ Classe PDFDocument (FET)
 
 Classe LaboralLifeDoc (FET)
 
-Classe MemberAccreditationDoc
+Classe MemberAccreditationDoc (FET)
 
 Classe UnifiedPlatform
 
