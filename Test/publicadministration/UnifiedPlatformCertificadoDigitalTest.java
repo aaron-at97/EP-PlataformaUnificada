@@ -26,8 +26,8 @@ public class UnifiedPlatformCertificadoDigitalTest {
     static CertificationAuthority datosCertificationAuth;
     static SS ss;
     static UnifiedPlatform up;
-    static LaboralLifeDoc laboralLife;
-    static MemberAccreditationDoc accreditationDoc;
+    static Map<Nif, LaboralLifeDoc> laboralLife = new HashMap<>();
+    static Map<Nif, MemberAccreditationDoc> accreditationDoc = new HashMap<>();
     private static QuotePeriodsColl qPdC;
     private static QuotePeriod qPd, qPd2, qPd3;
     static EncryptedData data;
@@ -49,17 +49,21 @@ public class UnifiedPlatformCertificadoDigitalTest {
     @BeforeEach
     void setUp() {
 
-        laboralLife = new LaboralLifeDoc(new Nif("7854954N"), qPdC);
-        accreditationDoc = new MemberAccreditationDoc(new Nif("7854954N"), new AccredNumb("252132563551"));
+        laboralLife.put(new Nif("98748978T"), new LaboralLifeDoc(new Nif("59168954S"), qPdC));
+        accreditationDoc.put(new Nif("98748978T"), new MemberAccreditationDoc(new Nif("59168954S"), new AccredNumb("252132563551")));
+        laboralLife.put(new Nif("19874897B"), new LaboralLifeDoc(new Nif("98748978T"), qPdC));
+        accreditationDoc.put(new Nif("19874897B"), new MemberAccreditationDoc(new Nif("98748978T"), new AccredNumb("321498563551")));
 
         ss = new SSTest();
         datosCertificationAuth = new CertAuthorityTest();
 
         up = new UnifiedPlatform(datosCertificationAuth, ss);
+
     }
 
     @Test
     void selcheckCertDigitalTest() throws Exception {
+
         up.selects();
         up.selectCitizens();
         up.selectReports();
@@ -71,13 +75,15 @@ public class UnifiedPlatformCertificadoDigitalTest {
         certDigital.put(up.getKey(), new Nif("98748978T"));
         data = new EncryptedData(decryptor.getEncrypted(certDigital.get(up.getKey()), up.getKey()).getBytes());
         System.out.println(data);
-        up.setData(new  EncryptedData(decryptor.getEncrypted(new Nif("98748978T"), up.getKey()).getBytes()));
+        up.setData(new EncryptedData(decryptor.getEncrypted(new Nif("98748978T"), up.getKey()).getBytes()));
 
         assertEquals(new Nif("98748978T"), up.decryptIDdata(up.getData()));
+        assertEquals(laboralLife.get(new Nif("98748978T")), up.getSs().getLaboralLife(up.nif));
     }
 
     @Test
     void selcheckCertDigitalMemberAccredTest() throws Exception {
+
         up.selects();
         up.selectCitizens();
         up.selectReports();
@@ -92,7 +98,7 @@ public class UnifiedPlatformCertificadoDigitalTest {
         up.setData(new  EncryptedData(decryptor.getEncrypted(new Nif("19874897B"), up.getKey()).getBytes()));
 
         assertEquals(new Nif("19874897B"), up.decryptIDdata(up.getData()));
-
+        assertEquals(accreditationDoc.get(new Nif("19874897B")), up.getSs().getMembAccred(up.nif));
     }
 
     @Test
@@ -121,8 +127,6 @@ public class UnifiedPlatformCertificadoDigitalTest {
 
     }
 
-
-
     private static class CertAuthorityTest implements CertificationAuthority {
         @Override
         public boolean sendPIN(Nif nif, Date date) {
@@ -146,11 +150,11 @@ public class UnifiedPlatformCertificadoDigitalTest {
     private static class SSTest implements SS {
         @Override
         public LaboralLifeDoc getLaboralLife(Nif nif) {
-            return laboralLife;
+            return laboralLife.get(nif);
         }
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
-            return accreditationDoc;
+            return accreditationDoc.get(nif);
         }
     }
 }

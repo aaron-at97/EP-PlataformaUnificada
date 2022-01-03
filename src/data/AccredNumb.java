@@ -4,7 +4,7 @@ import static java.lang.Character.isDigit;
 
 final public class AccredNumb {
 
-    private final String ssNum; //  ej SS:  25 21325635 51
+    private final String ssNum; //  ej SS:  25 26525635 51
 
     public AccredNumb(String code) {
         this.ssNum = code;
