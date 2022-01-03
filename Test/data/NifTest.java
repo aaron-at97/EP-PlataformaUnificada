@@ -22,7 +22,7 @@ public class NifTest {
         incorrect1 = new Nif("12345678910N"); // mas de 10 digitos
         incorrect2 = new Nif("781989578"); // 0 caracteres
         incorrect3 = new Nif("12345678NA"); //mas caracteres
-        incorrect4 = new Nif("1234567890AAAA"); //diferente orden
+        incorrect4 = new Nif("AAAA1234567890"); //diferente orden
         incorrect5 = new Nif("");
     }
 
