@@ -40,7 +40,7 @@ Classe SSImpl (FET)
 
 Paquet publicadministration
 
-Classe QuotePeriodColl
+Classe QuotePeriodColl (FET)
 
 Classe QuotePeriod
 
