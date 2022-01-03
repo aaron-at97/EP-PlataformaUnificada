@@ -46,7 +46,7 @@ Classe QuotePeriod (FET)
 
 Classe PDFDocument (FET)
 
-Classe LaboralLifeDoc
+Classe LaboralLifeDoc (FET)
 
 Classe MemberAccreditationDoc
 
