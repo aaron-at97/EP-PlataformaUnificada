@@ -4,7 +4,7 @@ Introducció: (FET)
 
 Implementació de mètodes:
 
-Paquet data
+Paquet data (FET)
 
 Excepcions (FET)
 
@@ -24,13 +24,13 @@ Classe Password (FET)
 
 Paquet Services
 
-Excepcions
+Excepcions (FET)
 
-Interfícies
+Interfícies (FET)
 
-Interfície CertificationAuthority
+Interfície CertificationAuthority (FET)
 
-Interfície SS
+Interfície SS (FET)
 
 Classes
 
