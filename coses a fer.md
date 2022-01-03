@@ -18,9 +18,9 @@ Classe EncryptedData (FET)
 
 Classe EncryptingKey (FET)
 
-Classe PINcode
+Classe PINcode (FET)
 
-Classe Password
+Classe Password (FET)
 
 Paquet Services
 
