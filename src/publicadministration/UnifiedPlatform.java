@@ -6,7 +6,9 @@ import publicadministration.exceptions.*;
 import services.*;
 import services.exceptions.*;
 
+import java.math.BigInteger;
 import java.net.ConnectException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +84,7 @@ public class UnifiedPlatform {
 
     public void selectCertificationReport(byte opc) {
         if (selReports) {
-            selAuth=true;
+            selAuth = true;
             System.out.println("------------------------------");
             System.out.println("Selecciona el metodo de autentificacion ");
             System.out.println("0: Cl@ve PIN ");
@@ -106,7 +108,7 @@ public class UnifiedPlatform {
     //Cl@ve PIN
     public void enterNIF_PINobt(Nif nif, Date valDate) throws NifNotRegisteredException,
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException {
-        if (opAuth==0) {
+        if (opAuth == 0) {
             try {
                 if (nif == null) {
                     throw new IncorrectValDateException("No posible validar cuenta nif nulo");
@@ -127,7 +129,7 @@ public class UnifiedPlatform {
 
     //Cl@ve PIN & Cl@ve Permanente
     public void enterPIN(PINcode pin) throws NotValidPINException, NotAffiliatedException, ConnectException {
-        if (checkPIN){
+        if (checkPIN) {
             try {
                 if (!cert.checkPIN(nif, pin)) {
                     throw new NotValidPINException("");
@@ -142,7 +144,7 @@ public class UnifiedPlatform {
     // Opcional Cl@ve Permanente
     public void enterCred(Nif nif, Password passw) throws NifNotRegisteredException, NotValidCredException,
             AnyMobileRegisteredException, ConnectException {
-        if (opAuth==1) {
+        if (opAuth == 1) {
             try {
                 byte metodo;
                 if (nif == null) {
@@ -169,29 +171,66 @@ public class UnifiedPlatform {
 
     // Certificado Digital
 
-    public void selectCertificate(byte opc){
-        if (opAuth==2) {
+    public void selectCertificate(byte opc) {
+        if (opAuth == 2) {
 
         }
     }
+
     public void enterPassw(Password pas) throws NotValidPasswordException {
 
+        if (pas==null) {
+            throw new NotValidPasswordException("");
+        }
+
+        try {
+            Decryptor decryptor = new Decryptor();
+            EncryptingKey keyPub = decryptor.getPublicKey();
+
+            cert.sendCertfAuth(keyPub);
+
+        } catch (NoSuchAlgorithmException | NotValidCertificateException | ConnectException e) {
+            throw new NotValidPasswordException("" + e);
+        }
     }
+
     Nif decryptIDdata(EncryptedData encrypData) throws DecryptationException {
+
+        if (encrypData == null) {
+            throw new DecryptationException("El nif encriptado es nulo ");
+        }
+
+        try {
+            Decryptor decryptor = new Decryptor();
+            this.nif = decryptor.decryptIDdata(encrypData, decryptor.getPrivateKey());
+            if (this.nif == null) {
+                throw new DecryptationException(" Error al desencriptado del nif");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return this.nif;
     }
-    Nif decryptIDdata(EncryptedData encrypData, EncryptingKey privKey) throws DecryptationException{
-        return this.nif;
-    }
+
 
     // Fin Certificado Digital
 
-    private void printDocument() throws BadPathException, PrintingException {}
-    private void downloadDocument() {}
-    private void selectPath(DocPath path) throws BadPathException {}
 
-    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
-    private void downloadDocument(DocPath path) throws BadPathException {}
+    private void printDocument() throws BadPathException, PrintingException {
+    }
+
+    private void downloadDocument() {
+    }
+
+    private void selectPath(DocPath path) throws BadPathException {
+    }
+
+    private void printDocument(DocPath path) throws BadPathException, PrintingException {
+    }
+
+    private void downloadDocument(DocPath path) throws BadPathException {
+    }
+
     // Other operations
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
 

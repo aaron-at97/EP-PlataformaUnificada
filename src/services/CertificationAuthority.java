@@ -14,6 +14,5 @@ public interface CertificationAuthority {// External service that represents the
             ConnectException;
     byte checkCredent (Nif nif, Password passw) throws NifNotRegisteredException,
             NotValidCredException, AnyMobileRegisteredException, ConnectException;
-    EncryptedData sendCertfAuth(EncryptingKey pubKey)
-            throws Exception;
+    EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException, ConnectException;
 }
