@@ -199,10 +199,11 @@ public class UnifiedPlatform {
             Decryptor decryptor = new Decryptor();
 
             this.nif = decryptor.decryptIDdata(encrypData, priKey);
-
             if (this.nif == null) {
                 throw new DecryptationException(" Error al desencriptado del nif");
             }
+            informes();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -29,7 +29,6 @@ public class UnifiedPlatformPermanenteTest {
     static Map<Nif, Byte> listTypePermanente = new HashMap<>();
     static Map<Nif, LaboralLifeDoc> laboralLife = new HashMap<>();
     static Map<Nif, MemberAccreditationDoc> accreditationDoc = new HashMap<>();
-
     private static QuotePeriodsColl qPdC;
     private static QuotePeriod qPd, qPd2, qPd3;
 
@@ -49,6 +48,11 @@ public class UnifiedPlatformPermanenteTest {
     @BeforeEach
     void setUp() {
 
+        laboralLife.put(new Nif("59168954S"), new LaboralLifeDoc(new Nif("59168954S"), qPdC));
+        accreditationDoc.put(new Nif("59168954S"), new MemberAccreditationDoc(new Nif("59168954S"), new AccredNumb("252132563551")));
+        laboralLife.put(new Nif("98748978T"), new LaboralLifeDoc(new Nif("98748978T"), qPdC));
+        accreditationDoc.put(new Nif("98748978T"), new MemberAccreditationDoc(new Nif("98748978T"), new AccredNumb("321498563551")));
+
         ss = new SSTest();
 
         listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
@@ -57,10 +61,6 @@ public class UnifiedPlatformPermanenteTest {
         telNum.put(new Nif("98748978T"),"665987123");
         telNum.put(new Nif("59168954S"),"656421789");
 
-        laboralLife.put(new Nif("59168954S"), new LaboralLifeDoc(new Nif("59168954S"), qPdC));
-        accreditationDoc.put(new Nif("59168954S"), new MemberAccreditationDoc(new Nif("59168954S"), new AccredNumb("252132563551")));
-        laboralLife.put(new Nif("98748978T"), new LaboralLifeDoc(new Nif("98748978T"), qPdC));
-        accreditationDoc.put(new Nif("98748978T"), new MemberAccreditationDoc(new Nif("98748978T"), new AccredNumb("321498563551")));
 
         listTypePermanente.put(new Nif("59168954S"), (byte) 1);
         listTypePermanente.put(new Nif("98748978T"), (byte) 2);
@@ -82,6 +82,7 @@ public class UnifiedPlatformPermanenteTest {
         up.enterCred(new Nif("59168954S"), new Password("S12a3v4652"));
 
         assertEquals(laboralLife.get(new Nif("59168954S")), up.getSs().getLaboralLife(up.nif));
+
     }
 
     @Test
@@ -95,6 +96,7 @@ public class UnifiedPlatformPermanenteTest {
         up.enterCred(new Nif("59168954S"), new Password("S12a3v4652"));
 
         assertEquals(accreditationDoc.get(new Nif("59168954S")), up.getSs().getMembAccred(up.nif));
+
     }
 
     @Test
@@ -124,6 +126,7 @@ public class UnifiedPlatformPermanenteTest {
         up.enterPIN(new PINcode("123"));
 
         assertEquals(accreditationDoc.get(new Nif("98748978T")), up.getSs().getMembAccred(up.nif));
+
     }
 
 
@@ -133,17 +136,14 @@ public class UnifiedPlatformPermanenteTest {
         public boolean sendPIN(Nif nif, Date date) {
             return true;
         }
-
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return true;
         }
-
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return listTypePermanente.get(nif);
         }
-
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
             return null;
