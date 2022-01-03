@@ -13,21 +13,24 @@ import java.util.Map;
 
 
 public class UnifiedPlatform {
-    //??? // The class members
 
     CertificationAuthority cert;
     SS ss;
     Nif nif;
+    LaboralLifeDoc laboralLifeDoc;
+    MemberAccreditationDoc accreditationDoc;
     PDFDocument doc;
-    byte opcion, selAuth;
+    byte opcion, opAuth;
     PINcode pin;
-    boolean searcher, selects, selCitizens, selReports;
+    boolean searcher, selects, selCitizens, selReports, selAuth, checkPIN;
 
     public UnifiedPlatform(CertificationAuthority cert, SS ss) {
         this.searcher = false;
         this.selects = false;
         this.selCitizens = false;
+        this.selAuth = false;
         this.selReports = false;
+        this.checkPIN = false;
         this.cert = cert;
         this.ss = ss;
         this.pin = null;
@@ -44,11 +47,10 @@ public class UnifiedPlatform {
 
     public void enterKeyWords(String keyWord) throws AnyKeyWordProcedureException {
         if (searcher) {
-            String res = byKeyWord(keyWord);
-            if (res == null) {
-                throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
-            }
-            System.out.println(res);
+            String res = searchKeyWords(keyWord);
+            System.out.print(res);
+        } else {
+            System.out.print("Metodo que precede no realizado \n");
         }
     }
 
@@ -79,8 +81,8 @@ public class UnifiedPlatform {
     }
 
     public void selectCertificationReport(byte opc) {
-        if (selCitizens) {
-            selReports = true;
+        if (selReports) {
+            selAuth=true;
             System.out.println("------------------------------");
             System.out.println("Selecciona el metodo de autentificacion ");
             System.out.println("0: Cl@ve PIN ");
@@ -94,22 +96,20 @@ public class UnifiedPlatform {
     }
 
     public void selectAuthMethod(byte opc) {
-        if (selCitizens) {
-            selReports = true;
-            selAuth = opc;
+        if (selAuth) {
+            opAuth = opc;
         } else {
             System.out.print("Metodo que precede no realizado \n");
         }
-
     }
 
     //Cl@ve PIN
     public void enterNIF_PINobt(Nif nif, Date valDate) throws NifNotRegisteredException,
             IncorrectValDateException, AnyMobileRegisteredException, ConnectException {
-        if (selAuth==0) {
+        if (opAuth==0) {
             try {
                 if (nif == null) {
-                    throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+                    throw new IncorrectValDateException("No posible validar cuenta nif nulo");
                 }
                 if (valDate == null) {
                     throw new IncorrectValDateException("data nula");
@@ -118,6 +118,7 @@ public class UnifiedPlatform {
                     throw new NifNotRegisteredException("No posible validar cuenta");
                 }
                 this.nif = nif;
+                this.checkPIN = true;
             } catch (ConnectException ce) {
                 throw new ConnectException();
             }
@@ -126,25 +127,26 @@ public class UnifiedPlatform {
 
     //Cl@ve PIN & Cl@ve Permanente
     public void enterPIN(PINcode pin) throws NotValidPINException, NotAffiliatedException, ConnectException {
-
-        try {
-            if (!cert.checkPIN(nif, pin)) {
-                throw new NotValidPINException("");
+        if (checkPIN){
+            try {
+                if (!cert.checkPIN(nif, pin)) {
+                    throw new NotValidPINException("");
+                }
+                informes();
+            } catch (ConnectException e) {
+                throw new ConnectException("" + e);
             }
-            informes();
-        } catch (ConnectException e) {
-            throw new ConnectException("" + e);
         }
     }
 
     // Opcional Cl@ve Permanente
     public void enterCred(Nif nif, Password passw) throws NifNotRegisteredException, NotValidCredException,
             AnyMobileRegisteredException, ConnectException {
-        if (selAuth==1) {
+        if (opAuth==1) {
             try {
                 byte metodo;
                 if (nif == null) {
-                    throw new NifNotRegisteredException("No posible validar cuenta nif nulo");
+                    throw new NotValidCredException("No posible validar cuenta nif nulo");
                 }
                 if (passw == null) {
                     throw new NotValidCredException("Password nula");
@@ -157,17 +159,18 @@ public class UnifiedPlatform {
                 } else if (metodo == 1) {
                     informes();
                 } else if (metodo == 2) {
-                    enterPIN(pin);
+                    this.checkPIN = true;
                 }
-            } catch (ConnectException | NotAffiliatedException | NotValidPINException e) {
+            } catch (ConnectException | NotAffiliatedException e) {
                 throw new ConnectException("" + e);
             }
         }
     }
 
     // Certificado Digital
+
     public void selectCertificate(byte opc){
-        if (selAuth==2) {
+        if (opAuth==2) {
 
         }
     }
@@ -183,29 +186,28 @@ public class UnifiedPlatform {
 
     // Fin Certificado Digital
 
-    private void printDocument() throws BadPathException, PrintingException {
-        if (doc.getPath() == null) {
-            throw new BadPathException("Ruta tramites incorrecta");
-        }
-
-    }
-
-    private void downloadDocument() {
-    }
-
-    private void selectPath(DocPath path) throws BadPathException {
-        if (path==null) {
-            throw new BadPathException("Ruta tramites incorrecta");
-        }
-    }
+    private void printDocument() throws BadPathException, PrintingException {}
+    private void downloadDocument() {}
+    private void selectPath(DocPath path) throws BadPathException {}
 
     // Other operations
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
-        String res = byKeyWord(keyWord);
-        if (res == null) {
-            throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
+
+        Map<String, String> listkeyWord = new HashMap<>();
+        listkeyWord.put("vida laboral", "SS");
+        listkeyWord.put("numero de afiliacion", "SS");
+        listkeyWord.put("afiliacion", "SS");
+        listkeyWord.put("laboral", "SS");
+        listkeyWord.put("datos fiscales", "AEAT");
+        listkeyWord.put("declaración de la renta", "AEAT");
+        listkeyWord.put("puntos carnet", "DGT");
+        listkeyWord.put("certificado de nacimiento", "MJ");
+
+        if (listkeyWord.containsKey(keyWord)) {
+            return listkeyWord.get(keyWord);
         }
-        return res;
+
+        throw new AnyKeyWordProcedureException(" tramite no encontrado con la KeyWord ");
     }
 
     void OpenDocument(DocPath path) throws BadPathException {
@@ -221,48 +223,20 @@ public class UnifiedPlatform {
         }
 
     }
-
-    private void printDocument(DocPath path) throws BadPathException, PrintingException {
-
-        if (!doc.getPath().equals(path)) {
-            throw new BadPathException("Ruta tramites incorrecta");
-        }
-
-        System.out.println("Okay");
-    }
-
-    private void downloadDocument(DocPath path) throws BadPathException {
-        if (!doc.getPath().equals(path)) {
-            throw new BadPathException("Ruta tramites incorrecta");
-        }
-    }
-
-    private String byKeyWord(String keyWord) {
-        Map<String, String> listkeyWord = new HashMap<>();
-        listkeyWord.put("vida laboral", "SS");
-        listkeyWord.put("numero de afiliacion", "SS");
-        listkeyWord.put("afiliacion", "SS");
-        listkeyWord.put("laboral", "SS");
-        listkeyWord.put("datos fiscales", "AEAT");
-        listkeyWord.put("declaración de la renta", "AEAT");
-        listkeyWord.put("puntos carnet", "DGT");
-        listkeyWord.put("certificado de nacimiento", "MJ");
-
-        if (listkeyWord.containsKey(keyWord)) {
-            return listkeyWord.get(keyWord);
-        }
-        return null;
-    }
+    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
+    private void downloadDocument(DocPath path) throws BadPathException {}
 
     private void informes() throws NotAffiliatedException, ConnectException {
         if (opcion == 0) {
             if (ss.getLaboralLife(nif) == null) {
                 throw new NotAffiliatedException("");
             }
+            setLaboralLifeDoc(ss.getLaboralLife(nif));
         } else if (opcion == 1) {
-            if (ss.getLaboralLife(nif) == null) {
+            if (ss.getMembAccred(nif) == null) {
                 throw new NotAffiliatedException("");
             }
+            setAccreditationDoc(ss.getMembAccred(nif));
         }
     }
 
@@ -270,16 +244,8 @@ public class UnifiedPlatform {
         return cert;
     }
 
-    public void setCert(CertificationAuthority cert) {
-        this.cert = cert;
-    }
-
     public SS getSs() {
         return ss;
-    }
-
-    public void setSs(SS ss) {
-        this.ss = ss;
     }
 
     public Nif getNif() {
@@ -306,6 +272,27 @@ public class UnifiedPlatform {
         this.pin = pin;
     }
 
+    public void setCheckPIN(boolean checkPIN) {
+        this.checkPIN = checkPIN;
+    }
 
-    //??? // Possibly more operations
+    public void setOpcion(byte opcion) {
+        this.opcion = opcion;
+    }
+
+    public LaboralLifeDoc getLaboralLifeDoc() {
+        return laboralLifeDoc;
+    }
+
+    public void setLaboralLifeDoc(LaboralLifeDoc laboralLifeDoc) {
+        this.laboralLifeDoc = laboralLifeDoc;
+    }
+
+    public MemberAccreditationDoc getAccreditationDoc() {
+        return accreditationDoc;
+    }
+
+    public void setAccreditationDoc(MemberAccreditationDoc accreditationDoc) {
+        this.accreditationDoc = accreditationDoc;
+    }
 }
