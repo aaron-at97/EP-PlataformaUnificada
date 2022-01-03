@@ -44,4 +44,4 @@
       *  [x] SSImplTest
 
   * Documentación
-    *  [ ] ----------------------------
+    *  [ ] Esqueleto hecho en rama marc. Falta hacer-lo.
