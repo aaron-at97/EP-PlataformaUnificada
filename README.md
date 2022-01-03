@@ -47,8 +47,8 @@
     *  [x] Esqueleto hecho en rama marc. Falta hacer-lo.
     *  [x] Implementacion paquete data
     *  [x] Implementacion paquete services
-    *  [] Implementacion paquete publicadministration
-    *  [] Implementacion paquete dataTest
-    *  [] Implementacion paquete servicesTest
-    *  [] Implementacion paquete publicadministrationTest
+    *  [ ] Implementacion paquete publicadministration
+    *  [ ] Implementacion paquete dataTest
+    *  [ ] Implementacion paquete servicesTest
+    *  [ ] Implementacion paquete publicadministrationTest
     Tot el relatiu a la documentació dels testos és competència del Pau
