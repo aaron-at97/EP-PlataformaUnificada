@@ -6,11 +6,11 @@ Implementació de mètodes:
 
 Paquet data
 
-Excepcions
+Excepcions (FET)
 
-Classe NIF
+Classe NIF (FET)
 
-Classe AccredNumb
+Classe AccredNumb (FET)
 
 Classe DocPath
 
