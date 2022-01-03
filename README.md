@@ -55,5 +55,6 @@
     *  [ ] Principios SOLID reflejas en la práctica (Aarón)
     *  [ ] Patrones Grasp reflejados en la práctica (Aarón)
     *  [ ] Observaciones (Aarón)
-    *  
-    Tot el relatiu a la documentació dels testos és competència del Pau
+
+
+    * Tot el relatiu a la documentació dels testos és competència del Pau
