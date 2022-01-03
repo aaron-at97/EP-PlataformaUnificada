@@ -16,7 +16,7 @@ Classe DocPath (FET)
 
 Classe EncryptedData (FET)
 
-Classe EncryptingKey
+Classe EncryptingKey (FET)
 
 Classe PINcode
 
