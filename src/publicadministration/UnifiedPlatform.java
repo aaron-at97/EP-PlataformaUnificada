@@ -156,6 +156,7 @@ public class UnifiedPlatform {
                 if (metodo == 0) {
                     throw new NifNotRegisteredException("NIF no registrado al sistema Permanente");
                 } else if (metodo == 1) {
+                    System.out.println(metodo);
                     informes();
                 } else if (metodo == 2) {
                     this.checkPIN = true;
@@ -175,11 +176,9 @@ public class UnifiedPlatform {
     }
 
     public void enterPassw(Password pas) throws NotValidPasswordException {
-
         if (!getPassword().equals(pas)) {
             throw new NotValidPasswordException("");
         }
-
         try {
             Decryptor decryptor = new Decryptor();
             setKey(decryptor.getPublicKey());
@@ -193,11 +192,9 @@ public class UnifiedPlatform {
     }
 
     Nif decryptIDdata(EncryptedData encrypData) throws DecryptationException {
-
         if (encrypData == null) {
             throw new DecryptationException("El nif encriptado es nulo ");
         }
-
         try {
             Decryptor decryptor = new Decryptor();
 
@@ -206,7 +203,6 @@ public class UnifiedPlatform {
             if (this.nif == null) {
                 throw new DecryptationException(" Error al desencriptado del nif");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -216,16 +212,11 @@ public class UnifiedPlatform {
     // Fin Certificado Digital
 
 
-    private void printDocument() throws BadPathException, PrintingException {
-    }
-    private void downloadDocument() {
-    }
-    private void selectPath(DocPath path) throws BadPathException {
-    }
-    private void printDocument(DocPath path) throws BadPathException, PrintingException {
-    }
-    private void downloadDocument(DocPath path) throws BadPathException {
-    }
+    private void printDocument() throws BadPathException, PrintingException {}
+    private void downloadDocument() {}
+    private void selectPath(DocPath path) throws BadPathException {}
+    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
+    private void downloadDocument(DocPath path) throws BadPathException {}
 
     // Other operations
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
@@ -258,9 +249,7 @@ public class UnifiedPlatform {
         if (listCertificate.containsKey(opc)) {
             return listCertificate.get(opc);
         }
-
         return null;
-
     }
 
     public void OpenDocument(DocPath path) throws BadPathException {
@@ -333,9 +322,6 @@ public class UnifiedPlatform {
 
     public void setAccreditationDoc(MemberAccreditationDoc accreditationDoc) {
         this.accreditationDoc = accreditationDoc;
-    }
-    public PDFDocument getDoc() {
-        return doc;
     }
     public EncryptedData getData() {
         return data;

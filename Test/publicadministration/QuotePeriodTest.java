@@ -24,7 +24,7 @@ public class QuotePeriodTest {
     void equalsTest() {
         QuotePeriod equals = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
         QuotePeriod equals1 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
-        System.out.println(qPd);
+
         assertEquals(qPd, equals);
         assertEquals(qPd2, equals1);
 

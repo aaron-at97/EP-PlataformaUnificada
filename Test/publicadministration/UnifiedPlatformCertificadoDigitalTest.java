@@ -71,7 +71,7 @@ public class UnifiedPlatformCertificadoDigitalTest {
         certDigital.put(up.getKey(), new Nif("98748978T"));
         data = new EncryptedData(decryptor.getEncrypted(certDigital.get(up.getKey()), up.getKey()).getBytes());
         System.out.println(data);
-        up.setData(new  EncryptedData(decryptor.getEncrypted(new Nif("98748978T"), up.getKey()).getBytes()));
+        up.setData(new EncryptedData(decryptor.getEncrypted(new Nif("98748978T"), up.getKey()).getBytes()));
 
         assertEquals(new Nif("98748978T"), up.decryptIDdata(up.getData()));
     }
