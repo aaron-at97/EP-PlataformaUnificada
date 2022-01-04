@@ -31,15 +31,15 @@ public class NifTest {
 
         Assertions.assertEquals(correct.getNif(), "78198957N");
         assertThrows(Exception.class, () ->
-            incorrect1.getNif());
+                incorrect1.getNif());
         assertThrows(Exception.class, () ->
-            incorrect2.getNif());
+                incorrect2.getNif());
         assertThrows(Exception.class, () ->
-            incorrect3.getNif());
+                incorrect3.getNif());
         assertThrows(Exception.class, () ->
-            incorrect4.getNif());
+                incorrect4.getNif());
         assertThrows(Exception.class, () ->
-            incorrect5.getNif());
+                incorrect5.getNif());
     }
 
     @Test

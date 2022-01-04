@@ -19,7 +19,7 @@ public class PDFDocument { // Represents a PDF document
         this.creatDate = new Date();
         this.path = new DocPath("src/Docs/");
         this.file = new File("default.pdf");
-    } // Initializes attributes and emulates the document download at a default path
+    }
 
     public PDFDocument(DocPath path) {
         this.creatDate = new Date();
@@ -29,7 +29,8 @@ public class PDFDocument { // Represents a PDF document
 
     public PDFDocument(File file) {
         this.creatDate = new Date();
-        this.path = new DocPath("src/Docs/");;
+        this.path = new DocPath("src/Docs/");
+        ;
         this.file = file;
     }
 
@@ -74,7 +75,7 @@ public class PDFDocument { // Represents a PDF document
     public void moveDoc(DocPath destPath) throws Exception // Moves the document to the destination path indicated
     {
 
-        Path origenPath = FileSystems.getDefault().getPath(path.getPath()+getFile().getPath());
+        Path origenPath = FileSystems.getDefault().getPath(path.getPath() + getFile().getPath());
         Path destinoPath = FileSystems.getDefault().getPath(destPath.getPath());
 
         try {
@@ -88,7 +89,7 @@ public class PDFDocument { // Represents a PDF document
     public void openDoc(DocPath path) throws Exception // Opens the document at the path indicated
     {
         try {
-            Desktop.getDesktop().open(new File(path.getPath()+getFile()));
+            Desktop.getDesktop().open(new File(path.getPath() + getFile()));
         } catch (Exception ex) {
             throw new Exception();
         }

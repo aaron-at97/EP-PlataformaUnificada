@@ -29,9 +29,9 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
 
     @BeforeAll
     static void init() throws Exception {
-        qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
-        qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
-        qPd3 = new QuotePeriod(new Date(2018-1900, Calendar.AUGUST, 5) , 58);
+        qPd = new QuotePeriod(new Date(2020 - 1900, Calendar.FEBRUARY, 18), 3);
+        qPd2 = new QuotePeriod(new Date(2020 - 1900, Calendar.JULY, 5), 128);
+        qPd3 = new QuotePeriod(new Date(2018 - 1900, Calendar.AUGUST, 5), 58);
         qPdC = new QuotePeriodsColl();
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
@@ -47,7 +47,7 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
         ss = new SSTest();
 
         listClave.put(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
-        telNum.put(new Nif("78545954N"),"6123456789");
+        telNum.put(new Nif("78545954N"), "6123456789");
 
 
         datosCertificationAuth = new CertAuthorityTest();
@@ -103,14 +103,17 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
         public boolean sendPIN(Nif nif, Date date) {
             return true;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return true;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return 0;
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
             return null;
@@ -122,6 +125,7 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return laboralLife;
         }
+
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return accreditationDoc;

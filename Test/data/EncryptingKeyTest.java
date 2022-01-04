@@ -14,7 +14,6 @@ public class EncryptingKeyTest {
     static EncryptingKey incorrect1;
 
 
-
     @BeforeAll
     static void setupAll() {
         correct = new EncryptingKey(BigInteger.valueOf(4556));

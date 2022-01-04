@@ -25,7 +25,7 @@ public class PasswordTest {
     }
 
     @Test
-    public void getterPassword() throws Exception{
+    public void getterPassword() throws Exception {
 
         Assertions.assertEquals(correct.getPassword(), "S12a3v4652");
         assertThrows(Exception.class, () -> incorrect1.getPassword());

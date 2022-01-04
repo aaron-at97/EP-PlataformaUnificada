@@ -18,11 +18,11 @@ public class QuotePeriodCollTest {
     private QuotePeriodsColl qPdC;
 
     @BeforeEach
-    void init(){
+    void init() {
 
-        qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
-        qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
-        qPd3 = new QuotePeriod(new Date(2018-1900, Calendar.AUGUST, 5) , 58);
+        qPd = new QuotePeriod(new Date(2020 - 1900, Calendar.FEBRUARY, 18), 3);
+        qPd2 = new QuotePeriod(new Date(2020 - 1900, Calendar.JULY, 5), 128);
+        qPd3 = new QuotePeriod(new Date(2018 - 1900, Calendar.AUGUST, 5), 58);
         qPdC = new QuotePeriodsColl();
 
     }
@@ -47,7 +47,7 @@ public class QuotePeriodCollTest {
     @Test
     void addPeriodThrowsTest() throws DuplicatedQuotedPeriodOrNullException {
 
-        assertThrows(DuplicatedQuotedPeriodOrNullException.class, () ->  qPdC.addQuotePeriod(null));
+        assertThrows(DuplicatedQuotedPeriodOrNullException.class, () -> qPdC.addQuotePeriod(null));
         qPdC.addQuotePeriod(qPd);
         assertThrows(DuplicatedQuotedPeriodOrNullException.class, () -> qPdC.addQuotePeriod(qPd));
 
@@ -56,13 +56,12 @@ public class QuotePeriodCollTest {
     @Test
     void getInitDay() {
 
-        assertEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.FEBRUARY, 18));
-        assertEquals(qPd2.getInitDay(), new Date(2020-1900, Calendar.JULY, 5));
-        assertNotEquals(qPd.getInitDay(), new Date(2020-1900, Calendar.MARCH, 6));
-        assertNotEquals(qPd2.getInitDay(), new Date(2022-1900, Calendar.AUGUST, 5));
+        assertEquals(qPd.getInitDay(), new Date(2020 - 1900, Calendar.FEBRUARY, 18));
+        assertEquals(qPd2.getInitDay(), new Date(2020 - 1900, Calendar.JULY, 5));
+        assertNotEquals(qPd.getInitDay(), new Date(2020 - 1900, Calendar.MARCH, 6));
+        assertNotEquals(qPd2.getInitDay(), new Date(2022 - 1900, Calendar.AUGUST, 5));
 
     }
-
 
 
 }

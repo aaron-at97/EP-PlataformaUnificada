@@ -28,14 +28,14 @@ public class AccredNumbTest {
 
         Assertions.assertEquals(correct.getssNum(), "252132563551");
         assertThrows(Exception.class, () ->
-            incorrect1.getssNum());
+                incorrect1.getssNum());
         assertThrows(Exception.class, () ->
-            incorrect2.getssNum());
+                incorrect2.getssNum());
         assertThrows(Exception.class, () ->
-            incorrect3.getssNum());
+                incorrect3.getssNum());
 
         assertThrows(Exception.class, () ->
-            incorrect4.getssNum());
+                incorrect4.getssNum());
 
     }
 

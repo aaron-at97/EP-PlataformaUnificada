@@ -10,10 +10,10 @@ public class MemberAccreditationDoc extends PDFDocument {
     private Nif nif;
     private AccredNumb numAffil;
 
-    public MemberAccreditationDoc (Nif nif, AccredNumb nAff){
+    public MemberAccreditationDoc(Nif nif, AccredNumb nAff) {
         super();
-        this.nif=nif;
-        this.numAffil=nAff;
+        this.nif = nif;
+        this.numAffil = nAff;
     }
 
     public Nif getNif() {
@@ -33,6 +33,7 @@ public class MemberAccreditationDoc extends PDFDocument {
     public DocPath getPath() {
         return super.getPath();
     }
+
     @Override
     public void setFile(File file) {
         super.setFile(file);

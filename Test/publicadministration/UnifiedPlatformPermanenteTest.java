@@ -35,9 +35,9 @@ public class UnifiedPlatformPermanenteTest {
     @BeforeAll
     static void init() throws Exception {
 
-        qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
-        qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
-        qPd3 = new QuotePeriod(new Date(2018-1900, Calendar.AUGUST, 5) , 58);
+        qPd = new QuotePeriod(new Date(2020 - 1900, Calendar.FEBRUARY, 18), 3);
+        qPd2 = new QuotePeriod(new Date(2020 - 1900, Calendar.JULY, 5), 128);
+        qPd3 = new QuotePeriod(new Date(2018 - 1900, Calendar.AUGUST, 5), 58);
         qPdC = new QuotePeriodsColl();
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
@@ -58,8 +58,8 @@ public class UnifiedPlatformPermanenteTest {
         listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
         listPermanente.put(new Nif("98748978T"), new Password("56835Da6825"));
 
-        telNum.put(new Nif("98748978T"),"665987123");
-        telNum.put(new Nif("59168954S"),"656421789");
+        telNum.put(new Nif("98748978T"), "665987123");
+        telNum.put(new Nif("59168954S"), "656421789");
 
 
         listTypePermanente.put(new Nif("59168954S"), (byte) 1);
@@ -138,14 +138,17 @@ public class UnifiedPlatformPermanenteTest {
         public boolean sendPIN(Nif nif, Date date) {
             return true;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return true;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return listTypePermanente.get(nif);
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
             return null;
