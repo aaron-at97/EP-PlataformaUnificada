@@ -16,7 +16,7 @@
         *  [x] PDFDocument
         *  [x] LaboralLifeDoc
         *  [x] MemberAccreditationDoc
-        *  [x] UnifiedPlatform Arreglos funciones -> "no tocar System.out.println()"
+        *  [x] UnifiedPlatform
     * Services
         *  [x] AuthoridadCertificacion 
         *  [x] AuthoridadCertificacionImpl (certificado digital)
@@ -44,7 +44,7 @@
       *  [x] UnifiedPlatformCertificadoDigitalTest
       *  [x] UnifiedPlatformCertificadoDigitalNullTest 
     * Services 
-      *  [x] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
+      *  [x] AuthoridadCertificacionImplTest
       *  [x] SSImplTest
 
   * Documentación
