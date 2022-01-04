@@ -57,7 +57,9 @@ public class UnifiedPlatformCertificadoDigitalTest {
         ss = new SSTest();
         datosCertificationAuth = new CertAuthorityTest();
 
-        up = new UnifiedPlatform(datosCertificationAuth, ss);
+        up = new UnifiedPlatform();
+        up.setSs(ss);
+        up.setCert(datosCertificationAuth);
 
     }
 

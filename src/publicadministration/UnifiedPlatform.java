@@ -30,9 +30,10 @@ public class UnifiedPlatform {
     Password password;
     boolean searcher , selects, selCitizens, selReports, selAuth, checkPIN;
 
-    public UnifiedPlatform(CertificationAuthority cert, SS ss) {
-        this.cert = cert;
-        this.ss = ss;
+
+    public UnifiedPlatform() {
+        this.cert = null;
+        this.ss = null;
         this.doc = new PDFDocument();
     }
 
@@ -283,6 +284,10 @@ public class UnifiedPlatform {
 
     public void setCert(CertificationAuthority cert) {
         this.cert = cert;
+    }
+
+    public void setSs(SS ss) {
+        this.ss = ss;
     }
 
     public SS getSs() {
