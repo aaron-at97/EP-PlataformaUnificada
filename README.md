@@ -37,8 +37,12 @@
       *  [X] PDFDocumentTest
       *  [x] LaboralLifeDocTest
       *  [x] MemberAccreditationDocTest
-      *  [x] UnifiedPlatformNormalTest
-      *  [x] UnifiedPlatformNullTest 
+      *  [x] UnifiedPlatformClavePINOpenDocSearchTest
+      *  [x] UnifiedPlatformPINNullTest 
+      *  [x] UnifiedPlatformPermanenteTest
+      *  [x] UnifiedPlatformPermanenteNNullTest 
+      *  [x] UnifiedPlatformCertificadoDigitalTest
+      *  [x] UnifiedPlatformCertificadoDigitalNullTest 
     * Services 
       *  [x] AuthoridadCertificacionImplTest Digital Certification (certificado digital)
       *  [x] SSImplTest
