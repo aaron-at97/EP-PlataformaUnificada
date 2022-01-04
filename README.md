@@ -47,18 +47,3 @@
       *  [x] AuthoridadCertificacionImplTest
       *  [x] SSImplTest
 
-  * Documentación
-    *  [x] Esqueleto hecho en rama marc. Falta hacer-lo.
-    *  [x] Implementacion paquete data
-    *  [x] Implementacion paquete services
-    *  [x] Implementacion paquete publicadministration
-    *  [ ] Implementacion paquete dataTest
-    *  [ ] Implementacion paquete servicesTest
-    *  [ ] Implementacion paquete publicadministrationTest
-    
-    *  [ ] Principios SOLID reflejas en la práctica (Aarón)
-    *  [ ] Patrones Grasp reflejados en la práctica (Aarón)
-    *  [ ] Observaciones (Aarón)
-
-
-    * Tot el relatiu a la documentació dels testos és competència del Pau
