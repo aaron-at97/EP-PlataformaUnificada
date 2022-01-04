@@ -19,7 +19,7 @@
         *  [x] UnifiedPlatform
     * Services
         *  [x] AuthoridadCertificacion 
-        *  [x] AuthoridadCertificacionImpl (certificado digital)
+        *  [x] AuthoridadCertificacionImpl
         *  [x] SS
         *  [x] SSImpl
   * Tests
