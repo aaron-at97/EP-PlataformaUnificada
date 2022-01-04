@@ -15,14 +15,13 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UnifiedPlatformNullTest {
+public class UnifiedPlatformPINNullTest {
 
     static CertificationAuthority datosCertificationAuth;
     static SS ss;
     static UnifiedPlatform up;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    static Map<Nif, Password> listPermanente = new HashMap<>();
     static Map<Nif, Date> listClave = new HashMap<>();
     static Map<Nif, String> telNum = new HashMap<>();
 
@@ -33,7 +32,6 @@ public class UnifiedPlatformNullTest {
         ss = new SSTest();
 
         listClave.put(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
-        listPermanente.put(new Nif("59168954S"), new Password("S12a3v4652"));
 
         datosCertificationAuth = new CertAuthorityTest();
 
@@ -118,41 +116,6 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selEnterCredNotValidCredest() {
-
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 0);
-        up.selectAuthMethod((byte) 1);
-
-        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("12345954N"), new Password("S12a3v4652")));
-
-        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("59168954S"), null));
-
-        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("a1757867687FDF5")));
-
-        assertThrows(NotValidCredException.class, () -> up.enterCred(null, new Password("S12a3v4652")));
-
-    }
-
-    @Test
-    void selcheckCredAnyMobileTest() {
-
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 0);
-        up.selectAuthMethod((byte) 1);
-
-        assertThrows(AnyMobileRegisteredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("S12a3v4652")));
-
-        telNum.put(new Nif("59168954S"), "612456789");
-
-        assertThrows(NifNotRegisteredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("S12a3v4652")));
-    }
-
-    @Test
     void selchekPINTest() {
 
         up.selects();
@@ -164,44 +127,6 @@ public class UnifiedPlatformNullTest {
         assertThrows(NotValidPINException.class, () -> up.enterPIN(up.getPin()));
         up.setOpcion((byte) 1);
         assertThrows(NotValidPINException.class, () -> up.enterPIN(up.getPin()));
-
-    }
-
-    @Test
-    void selcheckCertDigitalNotValidPasswordTest() {
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 2);
-        up.selectCertificate((byte) 1);
-
-        assertThrows(NotValidPasswordException.class, () -> up.enterPassw(new Password("12a687sa1asa")));
-    }
-
-    @Test
-    void selcheckCertDigitalDecryptThrowsTest() {
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 2);
-        up.selectCertificate((byte) 1);
-
-        assertThrows(DecryptationException.class, () -> up.decryptIDdata(null));
-
-    }
-
-    @Test
-    void selcheckCertDigitalNotValidCertificateException() {
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 2);
-        up.selectCertificate((byte) 1);
-
-        assertThrows(NotValidCertificateException.class, () -> datosCertificationAuth.sendCertfAuth(null));
 
     }
 
@@ -219,14 +144,8 @@ public class UnifiedPlatformNullTest {
         public boolean checkPIN(Nif nif, PINcode pin) {
             return false;
         }
-
         @Override
-        public byte checkCredent(Nif nif, Password passw) throws NotValidCredException, AnyMobileRegisteredException {
-            if (!(listPermanente.containsKey(nif) && listPermanente.get(nif).equals(passw))) {
-                throw new NotValidCredException("");
-            } else if ((telNum.get(nif) == null)) {
-                throw new AnyMobileRegisteredException("");
-            }
+        public byte checkCredent(Nif nif, Password passw) {
             return 0;
         }
         @Override
