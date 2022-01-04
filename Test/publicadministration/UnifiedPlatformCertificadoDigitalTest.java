@@ -57,7 +57,9 @@ public class UnifiedPlatformCertificadoDigitalTest {
         ss = new SSTest();
         datosCertificationAuth = new CertAuthorityTest();
 
-        up = new UnifiedPlatform(datosCertificationAuth, ss);
+        up = new UnifiedPlatform();
+        up.setSs(ss);
+        up.setCert(datosCertificationAuth);
 
     }
 
@@ -99,32 +101,6 @@ public class UnifiedPlatformCertificadoDigitalTest {
 
         assertEquals(new Nif("19874897B"), up.decryptIDdata(up.getData()));
         assertEquals(accreditationDoc.get(new Nif("19874897B")), up.getSs().getMembAccred(up.nif));
-    }
-
-    @Test
-    void selcheckCertDigitalThrowsTest() {
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 2);
-        up.selectCertificate((byte) 1);
-
-        assertThrows(NotValidPasswordException.class, () -> up.enterPassw(new Password("12a687sa1asa")));
-    }
-
-    @Test
-    void selcheckCertDigitalDecryptThrowsTest() throws Exception {
-        up.selects();
-        up.selectCitizens();
-        up.selectReports();
-        up.selectCertificationReport((byte) 1);
-        up.selectAuthMethod((byte) 2);
-        up.selectCertificate((byte) 1);
-        up.enterPassw(new Password("68bb6bva1asa"));
-
-        assertThrows(DecryptationException.class, () -> up.decryptIDdata(null));
-
     }
 
     private static class CertAuthorityTest implements CertificationAuthority {

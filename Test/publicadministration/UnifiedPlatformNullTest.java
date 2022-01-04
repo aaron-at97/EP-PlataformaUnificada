@@ -3,15 +3,11 @@ package publicadministration;
 import data.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import publicadministration.exceptions.AnyKeyWordProcedureException;
-import publicadministration.exceptions.AnyMobileRegisteredException;
-import services.CertificationAuthority;
-import services.SS;
+import publicadministration.exceptions.*;
+import services.*;
 import services.exceptions.*;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +37,9 @@ public class UnifiedPlatformNullTest {
 
         datosCertificationAuth = new CertAuthorityTest();
 
-        up = new UnifiedPlatform(datosCertificationAuth, ss);
+        up = new UnifiedPlatform();
+        up.setSs(ss);
+        up.setCert(datosCertificationAuth);
     }
 
     @Test
@@ -69,24 +67,29 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selReportTest() {
+    void selPINIncorrectValDateTest() {
 
         up.selects();
         up.selectCitizens();
         up.selectReports();
         up.selectCertificationReport((byte) 0);
         up.selectAuthMethod((byte) 0);
+
         assertThrows(IncorrectValDateException.class, () -> up.enterNIF_PINobt(new Nif("78545954N"),
                 new Date(2021 - 1900, Calendar.AUGUST, 5, 4, 35)));
+
         assertThrows(IncorrectValDateException.class, () -> up.enterNIF_PINobt(new Nif("78545954N"), null));
+
         assertThrows(IncorrectValDateException.class, () -> up.enterNIF_PINobt(new Nif("12345954N"),
                 new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
-        assertThrows(IncorrectValDateException.class, () -> up.enterNIF_PINobt(null, new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
+
+        assertThrows(IncorrectValDateException.class, () -> up.enterNIF_PINobt(null,
+                new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
 
     }
 
     @Test
-    void selReportNifNotRegistrerTest() {
+    void selPINNifNotRegistrerTest() {
 
         up.selects();
         up.selectCitizens();
@@ -101,31 +104,34 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selReporAnyMobileTest() {
+    void selPINAnyMobileTest() {
 
         up.selects();
         up.selectCitizens();
         up.selectReports();
         up.selectCertificationReport((byte) 0);
         up.selectAuthMethod((byte) 0);
+
         assertThrows(AnyMobileRegisteredException.class, () -> up.enterNIF_PINobt(new Nif("78545954N"),
                 new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
 
     }
 
     @Test
-    void selcheckCredTest() {
+    void selEnterCredNotValidCredest() {
 
         up.selects();
         up.selectCitizens();
         up.selectReports();
         up.selectCertificationReport((byte) 0);
         up.selectAuthMethod((byte) 1);
-        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("12345954N"),
-                new Password("S12a3v4652")));
+
+        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("12345954N"), new Password("S12a3v4652")));
+
         assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("59168954S"), null));
-        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("59168954S"),
-                new Password("a1757867687FDF5")));
+
+        assertThrows(NotValidCredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("a1757867687FDF5")));
+
         assertThrows(NotValidCredException.class, () -> up.enterCred(null, new Password("S12a3v4652")));
 
     }
@@ -139,13 +145,11 @@ public class UnifiedPlatformNullTest {
         up.selectCertificationReport((byte) 0);
         up.selectAuthMethod((byte) 1);
 
-        assertThrows(AnyMobileRegisteredException.class, () -> up.enterCred(new Nif("59168954S"),
-                new Password("S12a3v4652")));
+        assertThrows(AnyMobileRegisteredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("S12a3v4652")));
 
         telNum.put(new Nif("59168954S"), "612456789");
 
-        assertThrows(NifNotRegisteredException.class, () -> up.enterCred(new Nif("59168954S"),
-                new Password("S12a3v4652")));
+        assertThrows(NifNotRegisteredException.class, () -> up.enterCred(new Nif("59168954S"), new Password("S12a3v4652")));
     }
 
     @Test
@@ -164,6 +168,18 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
+    void selcheckCertDigitalNotValidPasswordTest() {
+        up.selects();
+        up.selectCitizens();
+        up.selectReports();
+        up.selectCertificationReport((byte) 1);
+        up.selectAuthMethod((byte) 2);
+        up.selectCertificate((byte) 1);
+
+        assertThrows(NotValidPasswordException.class, () -> up.enterPassw(new Password("12a687sa1asa")));
+    }
+
+    @Test
     void selcheckCertDigitalDecryptThrowsTest() {
         up.selects();
         up.selectCitizens();
@@ -171,7 +187,22 @@ public class UnifiedPlatformNullTest {
         up.selectCertificationReport((byte) 1);
         up.selectAuthMethod((byte) 2);
         up.selectCertificate((byte) 1);
+
+        assertThrows(DecryptationException.class, () -> up.decryptIDdata(null));
+
+    }
+
+    @Test
+    void selcheckCertDigitalNotValidCertificateException() {
+        up.selects();
+        up.selectCitizens();
+        up.selectReports();
+        up.selectCertificationReport((byte) 1);
+        up.selectAuthMethod((byte) 2);
+        up.selectCertificate((byte) 1);
+
         assertThrows(NotValidCertificateException.class, () -> datosCertificationAuth.sendCertfAuth(null));
+
     }
 
     private static class CertAuthorityTest implements CertificationAuthority {
@@ -209,7 +240,6 @@ public class UnifiedPlatformNullTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return null;
         }
-
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return null;

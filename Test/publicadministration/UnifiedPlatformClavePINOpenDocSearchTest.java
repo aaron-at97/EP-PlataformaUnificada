@@ -4,7 +4,6 @@ import data.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import publicadministration.exceptions.AnyKeyWordProcedureException;
 import services.*;
 
 import java.io.ByteArrayOutputStream;
@@ -52,8 +51,9 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
 
 
         datosCertificationAuth = new CertAuthorityTest();
-
-        up = new UnifiedPlatform(datosCertificationAuth, ss);
+        up = new UnifiedPlatform();
+        up.setSs(ss);
+        up.setCert(datosCertificationAuth);
     }
 
     @Test
@@ -64,12 +64,6 @@ public class UnifiedPlatformClavePINOpenDocSearchTest {
 
         assertEquals("SS", outContent.toString());
         System.setOut(originalOut);
-    }
-
-    @Test
-    void procesSearcherKeyWordThrowsTest() {
-        up.processSearcher();
-        assertThrows(AnyKeyWordProcedureException.class, () -> up.enterKeyWords("lab"));
     }
 
     @Test
