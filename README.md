@@ -51,7 +51,7 @@
     *  [x] Esqueleto hecho en rama marc. Falta hacer-lo.
     *  [x] Implementacion paquete data
     *  [x] Implementacion paquete services
-    *  [ ] Implementacion paquete publicadministration
+    *  [x] Implementacion paquete publicadministration
     *  [ ] Implementacion paquete dataTest
     *  [ ] Implementacion paquete servicesTest
     *  [ ] Implementacion paquete publicadministrationTest
