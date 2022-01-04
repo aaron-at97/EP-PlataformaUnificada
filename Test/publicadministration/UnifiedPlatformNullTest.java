@@ -67,7 +67,7 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selReportTest() {
+    void selPINIncorrectValDateTest() {
 
         up.selects();
         up.selectCitizens();
@@ -89,7 +89,7 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selReportNifNotRegistrerTest() {
+    void selPINNifNotRegistrerTest() {
 
         up.selects();
         up.selectCitizens();
@@ -104,20 +104,21 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
-    void selReporAnyMobileTest() {
+    void selPINAnyMobileTest() {
 
         up.selects();
         up.selectCitizens();
         up.selectReports();
         up.selectCertificationReport((byte) 0);
         up.selectAuthMethod((byte) 0);
+
         assertThrows(AnyMobileRegisteredException.class, () -> up.enterNIF_PINobt(new Nif("78545954N"),
                 new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
 
     }
 
     @Test
-    void selcheckCredTest() {
+    void selEnterCredNotValidCredest() {
 
         up.selects();
         up.selectCitizens();
@@ -167,7 +168,32 @@ public class UnifiedPlatformNullTest {
     }
 
     @Test
+    void selcheckCertDigitalNotValidPasswordTest() {
+        up.selects();
+        up.selectCitizens();
+        up.selectReports();
+        up.selectCertificationReport((byte) 1);
+        up.selectAuthMethod((byte) 2);
+        up.selectCertificate((byte) 1);
+
+        assertThrows(NotValidPasswordException.class, () -> up.enterPassw(new Password("12a687sa1asa")));
+    }
+
+    @Test
     void selcheckCertDigitalDecryptThrowsTest() {
+        up.selects();
+        up.selectCitizens();
+        up.selectReports();
+        up.selectCertificationReport((byte) 1);
+        up.selectAuthMethod((byte) 2);
+        up.selectCertificate((byte) 1);
+
+        assertThrows(DecryptationException.class, () -> up.decryptIDdata(null));
+
+    }
+
+    @Test
+    void selcheckCertDigitalNotValidCertificateException() {
         up.selects();
         up.selectCitizens();
         up.selectReports();
@@ -214,7 +240,6 @@ public class UnifiedPlatformNullTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return null;
         }
-
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return null;
