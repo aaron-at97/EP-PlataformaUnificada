@@ -3,6 +3,7 @@ package data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +14,6 @@ public class EncryptedDataTest {
     static EncryptedData correct;
     static EncryptedData correct1;
     static EncryptedData incorrect1;
-
 
 
     @BeforeAll
@@ -29,7 +29,7 @@ public class EncryptedDataTest {
 
         assertEquals(Arrays.toString("4Fi5r564ma".getBytes()), Arrays.toString(correct.getData()));
         assertEquals(Arrays.toString("s6874gfA79AT".getBytes()), Arrays.toString(correct1.getData()));
-        assertNotEquals(Arrays.toString("MBL".getBytes()),Arrays.toString(correct.getData()));
+        assertNotEquals(Arrays.toString("MBL".getBytes()), Arrays.toString(correct.getData()));
         assertNotEquals(Arrays.toString("OLI".getBytes()), Arrays.toString(correct1.getData()));
         assertThrows(Exception.class, () ->
                 incorrect1.getData());
@@ -43,11 +43,12 @@ public class EncryptedDataTest {
         Assertions.assertFalse(incorrect1.compDataCode());
 
     }
-    @Test
-    void toStringTest(){
 
-        String Equals= ("EncryptedData{" + "data=" + Arrays.toString("4Fi5r564ma".getBytes()) + '}');
-        String Equals2= ("EncryptedData{" + "data=" + Arrays.toString("s6874gfA79AT".getBytes()) + '}');
+    @Test
+    void toStringTest() {
+
+        String Equals = ("EncryptedData{" + "data=" + Arrays.toString("4Fi5r564ma".getBytes()) + '}');
+        String Equals2 = ("EncryptedData{" + "data=" + Arrays.toString("s6874gfA79AT".getBytes()) + '}');
 
         assertEquals(Equals, correct.toString());
         assertEquals(Equals2, correct1.toString());

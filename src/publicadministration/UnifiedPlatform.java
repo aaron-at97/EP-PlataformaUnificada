@@ -28,7 +28,7 @@ public class UnifiedPlatform {
     EncryptingKey key;
     EncryptingKey priKey;
     Password password;
-    boolean searcher , selects, selCitizens, selReports, selAuth, checkPIN;
+    boolean searcher, selects, selCitizens, selReports, selAuth, checkPIN;
 
 
     public UnifiedPlatform() {
@@ -214,11 +214,20 @@ public class UnifiedPlatform {
     // Fin Certificado Digital
 
 
-    private void printDocument() throws BadPathException, PrintingException {}
-    private void downloadDocument() {}
-    private void selectPath(DocPath path) throws BadPathException {}
-    private void printDocument(DocPath path) throws BadPathException, PrintingException {}
-    private void downloadDocument(DocPath path) throws BadPathException {}
+    private void printDocument() throws BadPathException, PrintingException {
+    }
+
+    private void downloadDocument() {
+    }
+
+    private void selectPath(DocPath path) throws BadPathException {
+    }
+
+    private void printDocument(DocPath path) throws BadPathException, PrintingException {
+    }
+
+    private void downloadDocument(DocPath path) throws BadPathException {
+    }
 
     // Other operations
     private String searchKeyWords(String keyWord) throws AnyKeyWordProcedureException {
@@ -256,7 +265,7 @@ public class UnifiedPlatform {
 
     public void OpenDocument(DocPath path) throws BadPathException {
 
-        if (path==null) {
+        if (path == null) {
             throw new BadPathException("Ruta tramites incorrecta");
         }
 
@@ -329,6 +338,7 @@ public class UnifiedPlatform {
     public void setAccreditationDoc(MemberAccreditationDoc accreditationDoc) {
         this.accreditationDoc = accreditationDoc;
     }
+
     public EncryptedData getData() {
         return data;
     }

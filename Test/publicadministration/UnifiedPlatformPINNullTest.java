@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import publicadministration.exceptions.*;
 import services.*;
 import services.exceptions.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
@@ -140,14 +141,17 @@ public class UnifiedPlatformPINNullTest {
             }
             return false;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return false;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return 0;
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException {
             throw new NotValidCertificateException("");
@@ -159,6 +163,7 @@ public class UnifiedPlatformPINNullTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return null;
         }
+
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return null;

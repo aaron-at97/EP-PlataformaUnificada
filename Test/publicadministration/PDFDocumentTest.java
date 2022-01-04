@@ -3,6 +3,7 @@ package publicadministration;
 import data.DocPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,8 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PDFDocumentTest {
     PDFDocument pdf;
     static SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
+
     @BeforeEach
-    void init(){
+    void init() {
         pdf = new PDFDocument();
     }
 
@@ -29,13 +31,14 @@ public class PDFDocumentTest {
         pdf.moveDoc(new DocPath("src/Docs/move/default.pdf"));
         PDFDocument pdf2 = new PDFDocument(new DocPath("src/Docs/move/"));
         pdf2.moveDoc(new DocPath("src/Docs/default.pdf"));
+
     }
 
     @Test
     void getCreatDate() {
         Date data = new Date();
         assertEquals(sdformat.format(data), sdformat.format(pdf.getCreatDate()));
-        assertNotEquals(new Date(2020-1900, Calendar.JULY, 5), pdf.getCreatDate());
+        assertNotEquals(new Date(2020 - 1900, Calendar.JULY, 5), pdf.getCreatDate());
     }
 
     @Test

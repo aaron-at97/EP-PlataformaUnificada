@@ -31,15 +31,15 @@ public class UnifiedPlatformCertificadoDigitalTest {
     private static QuotePeriodsColl qPdC;
     private static QuotePeriod qPd, qPd2, qPd3;
     static EncryptedData data;
-    static Map<EncryptingKey, Nif > certDigital  = new HashMap<>();
+    static Map<EncryptingKey, Nif> certDigital = new HashMap<>();
     static Decryptor decryptor;
 
     @BeforeAll
     static void init() throws Exception {
         decryptor = new Decryptor();
-        qPd = new QuotePeriod(new Date(2020-1900, Calendar.FEBRUARY, 18)  , 3);
-        qPd2 = new QuotePeriod(new Date(2020-1900, Calendar.JULY, 5) , 128);
-        qPd3 = new QuotePeriod(new Date(2018-1900, Calendar.AUGUST, 5) , 58);
+        qPd = new QuotePeriod(new Date(2020 - 1900, Calendar.FEBRUARY, 18), 3);
+        qPd2 = new QuotePeriod(new Date(2020 - 1900, Calendar.JULY, 5), 128);
+        qPd3 = new QuotePeriod(new Date(2018 - 1900, Calendar.AUGUST, 5), 58);
         qPdC = new QuotePeriodsColl();
         qPdC.addQuotePeriod(qPd);
         qPdC.addQuotePeriod(qPd2);
@@ -97,7 +97,7 @@ public class UnifiedPlatformCertificadoDigitalTest {
         certDigital.put(up.getKey(), new Nif("19874897B"));
         data = new EncryptedData(decryptor.getEncrypted(certDigital.get(up.getKey()), up.getKey()).getBytes());
         System.out.println(data);
-        up.setData(new  EncryptedData(decryptor.getEncrypted(new Nif("19874897B"), up.getKey()).getBytes()));
+        up.setData(new EncryptedData(decryptor.getEncrypted(new Nif("19874897B"), up.getKey()).getBytes()));
 
         assertEquals(new Nif("19874897B"), up.decryptIDdata(up.getData()));
         assertEquals(accreditationDoc.get(new Nif("19874897B")), up.getSs().getMembAccred(up.nif));
@@ -108,14 +108,17 @@ public class UnifiedPlatformCertificadoDigitalTest {
         public boolean sendPIN(Nif nif, Date date) {
             return true;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return true;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return 0;
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) {
             return data;
@@ -128,6 +131,7 @@ public class UnifiedPlatformCertificadoDigitalTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return laboralLife.get(nif);
         }
+
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return accreditationDoc.get(nif);

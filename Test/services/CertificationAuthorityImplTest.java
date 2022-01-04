@@ -1,24 +1,25 @@
 package services;
 
-        import data.*;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
-        import publicadministration.exceptions.AnyMobileRegisteredException;
-        import services.exceptions.*;
+import data.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import publicadministration.exceptions.AnyMobileRegisteredException;
+import services.exceptions.*;
 
-        import java.math.BigInteger;
-        import java.util.*;
-        import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigInteger;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CertificationAuthorityImplTest {
 
     static CertificationAuthority agenda;
     Decryptor decrypt;
-    Map<EncryptingKey, Nif > certDigital;
+    Map<EncryptingKey, Nif> certDigital;
     EncryptingKey key;
 
     @BeforeEach
-    void init() throws Exception {
+    void setUp() throws Exception {
 
         agenda = new CertificationAuthorityImpl();
         decrypt = new Decryptor();
@@ -31,7 +32,7 @@ public class CertificationAuthorityImplTest {
     @Test
     void sendTest() throws Exception {
 
-        assertTrue(agenda.sendPIN(new Nif("78545954N"), new Date(2021-1900, Calendar.APRIL, 6, 17,30)));
+        assertTrue(agenda.sendPIN(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30)));
 
         assertThrows(NifNotRegisteredException.class, () -> agenda.sendPIN(new Nif("87448231Y"),
                 new Date(2021 - 1900, Calendar.AUGUST, 7, 4, 8)));
@@ -45,7 +46,7 @@ public class CertificationAuthorityImplTest {
 
     @Test
     void checkPinTest() throws Exception {
-        agenda.sendPIN(new Nif("78545954N"), new Date(2021-1900, Calendar.APRIL, 6, 17,30));
+        agenda.sendPIN(new Nif("78545954N"), new Date(2021 - 1900, Calendar.APRIL, 6, 17, 30));
 
         assertTrue(agenda.checkPIN(new Nif("78545954N"), new PINcode("123")));
 

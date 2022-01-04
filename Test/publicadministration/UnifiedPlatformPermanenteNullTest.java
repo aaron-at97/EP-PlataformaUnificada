@@ -98,10 +98,12 @@ public class UnifiedPlatformPermanenteNullTest {
         public boolean sendPIN(Nif nif, Date date) {
             return false;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return false;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) throws NotValidCredException, AnyMobileRegisteredException {
             if (!(listPermanente.containsKey(nif) && listPermanente.get(nif).equals(passw))) {
@@ -111,6 +113,7 @@ public class UnifiedPlatformPermanenteNullTest {
             }
             return 0;
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException {
             throw new NotValidCertificateException("");
@@ -122,6 +125,7 @@ public class UnifiedPlatformPermanenteNullTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return null;
         }
+
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return null;

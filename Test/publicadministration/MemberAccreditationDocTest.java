@@ -1,12 +1,12 @@
 package publicadministration;
 
-        import data.AccredNumb;
-        import data.Nif;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
+import data.AccredNumb;
+import data.Nif;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-        import static org.junit.jupiter.api.Assertions.assertEquals;
-        import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MemberAccreditationDocTest {
 

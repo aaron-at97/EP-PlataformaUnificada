@@ -82,14 +82,17 @@ public class UnifiedPlatformCertificadoDigitalNullTest {
         public boolean sendPIN(Nif nif, Date date) {
             return false;
         }
+
         @Override
         public boolean checkPIN(Nif nif, PINcode pin) {
             return false;
         }
+
         @Override
         public byte checkCredent(Nif nif, Password passw) {
             return 0;
         }
+
         @Override
         public EncryptedData sendCertfAuth(EncryptingKey pubKey) throws NotValidCertificateException {
             throw new NotValidCertificateException("");
@@ -101,6 +104,7 @@ public class UnifiedPlatformCertificadoDigitalNullTest {
         public LaboralLifeDoc getLaboralLife(Nif nif) {
             return null;
         }
+
         @Override
         public MemberAccreditationDoc getMembAccred(Nif nif) {
             return null;

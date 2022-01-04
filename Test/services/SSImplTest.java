@@ -44,6 +44,7 @@ public class SSImplTest {
 
         mAd = new MemberAccreditationDoc(new Nif("78545954N"),new AccredNumb("252132563551"));
         mAd2 = new MemberAccreditationDoc(new Nif("28148954S"), new AccredNumb("360138569551"));
+
     }
 
     @Test

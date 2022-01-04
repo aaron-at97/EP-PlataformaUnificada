@@ -22,7 +22,7 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
     public void addQuotePeriod(QuotePeriod qPd) throws DuplicatedQuotedPeriodOrNullException {
         int len = listQuote.size();
         boolean flag = false;
-        if (qPd==null) {
+        if (qPd == null) {
             throw new DuplicatedQuotedPeriodOrNullException("Elemento nulo");
         }
         for (int i = 0; i < len; i++) {
@@ -35,11 +35,12 @@ public class QuotePeriodsColl { // Represents the total quote periods known as a
             }
         }
 
-        if (listQuote.size()==0 || !flag) {
+        if (listQuote.size() == 0 || !flag) {
             listQuote.add(qPd);
         }
 
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

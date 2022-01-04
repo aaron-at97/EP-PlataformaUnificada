@@ -9,10 +9,10 @@ public class LaboralLifeDoc extends PDFDocument { // Represents the laboral life
     private Nif nif;
     private QuotePeriodsColl quotePds;
 
-    public LaboralLifeDoc (Nif nif, QuotePeriodsColl qtP) {
+    public LaboralLifeDoc(Nif nif, QuotePeriodsColl qtP) {
         super();
-        this.nif=nif;
-        this.quotePds=qtP;
+        this.nif = nif;
+        this.quotePds = qtP;
     }
 
     public Nif getNif() {

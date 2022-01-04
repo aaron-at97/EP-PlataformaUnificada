@@ -23,7 +23,7 @@ public class PINcodeTest {
     }
 
     @Test
-    public void getterPINcode() throws Exception{
+    public void getterPINcode() throws Exception {
 
         Assertions.assertEquals(correct.getPin(), "321");
         assertThrows(Exception.class, () -> incorrect1.getPin());
